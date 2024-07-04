@@ -121,7 +121,6 @@ public:
 
 protected:
     void paintEvent(QPaintEvent* event) override {
-        qDebug() << "paintEvent triggered";
         QPainter painter(this);
         painter.drawImage(0, 0, background);
         test1.draw(painter, 1000 / 144, playerSignal);
