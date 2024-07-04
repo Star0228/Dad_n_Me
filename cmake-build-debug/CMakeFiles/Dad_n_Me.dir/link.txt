@@ -1,3 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2024.1.4\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\Dad_n_Me.dir/objects.a
-C:\Qt\Tools\mingw1120_64\bin\ar.exe qc CMakeFiles\Dad_n_Me.dir/objects.a @CMakeFiles\Dad_n_Me.dir\objects1.rsp
-C:\Qt\Tools\mingw1120_64\bin\c++.exe -g -Wl,--whole-archive CMakeFiles\Dad_n_Me.dir/objects.a -Wl,--no-whole-archive -o Dad_n_Me.exe -Wl,--out-implib,libDad_n_Me.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Dad_n_Me.dir\linkLibs.rsp

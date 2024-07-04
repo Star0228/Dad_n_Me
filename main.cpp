@@ -1,89 +1,160 @@
-#include <QApplication>
-#include <QPushButton>
-#include <QLabel>
-#include <QPixmap>
-#include <QVBoxLayout>
+
 #include <QWidget>
+#include <QApplication>
+#include <QPainter>
 #include <QTimer>
-#include <QStringList>
-#include <QPainter> // 添加 QPainter 头文件
+#include <QImage>
+#include <QDebug>
+#include <QString>
+#include <vector>
+#include <cmath>
 
-int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
+const int SMALL_AY_NUM = 8;
+const int IMG_INTERVAL = 30;
 
-    // 创建主窗口
-    QWidget window;
-    window.setWindowTitle("Image Walk Example");
-    window.resize(800, 600); // 调整窗口大小
+struct Point {
+    int x;
+    int y;
+};
 
-    // 创建一个标签来显示图片
-    QLabel *imageLabel = new QLabel(&window);
-    imageLabel->setAlignment(Qt::AlignCenter);  // 设置图片对齐方式为居中
+class Animation {
+private:
+    int timer = 0;
+    int idxRunFrame = 0;
+    int idxHitFrame = 0;
+    int interval = 0;
 
-    // 存储图片路径
-    QStringList imagePaths = {
-        "../resource/Enemy/run_r/1.png",
-        "../resource/Enemy/run_r/2.png",
-        "../resource/Enemy/run_r/3.png",
-        "../resource/Enemy/run_r/4.png",
-        "../resource/Enemy/run_r/5.png",
-        "../resource/Enemy/run_r/6.png",
-        "../resource/Enemy/run_r/7.png",
-        "../resource/Enemy/run_r/8.png"
-    };
+    std::vector<QImage> runFrameList;
+    std::vector<QImage> hitFrameList;
 
-    // 当前显示的图片索引
-    int currentImageIndex = 0;
-    int xOffset = 0;  // 用于记录图片的水平偏移量
-    int yOffset = 0;  // 用于记录图片的垂直偏移量
-
-    // 创建一个定时器，每隔一段时间更新一次图片
-    QTimer timer;
-    QObject::connect(&timer, &QTimer::timeout, [&]() {
-        QPixmap pixmap(imagePaths[currentImageIndex]);
-        if (!pixmap.isNull()) {
-            // 调整图片的显示大小，以窗口的大小为准
-            QPixmap scaledPixmap = pixmap.scaled(window.size(), Qt::KeepAspectRatio);
-
-            // 计算在窗口内的偏移量
-            xOffset += 5;  // 每次水平方向移动5个像素
-            yOffset += 5;  // 每次垂直方向移动5个像素
-
-            // 当偏移量超过窗口边界时，重置偏移量
-            if (xOffset > window.width()) {
-                xOffset = -scaledPixmap.width();  // 从窗口左侧开始显示
+public:
+    Animation(const QString& pathRun, const QString& pathHit, int numRun, int numHit, int interval)
+        : interval(interval)
+    {
+        for (int i = 0; i < numRun; ++i) {
+            QString pathFile = pathRun.arg(i);
+            QImage frame(pathFile);
+            if (frame.isNull()) {
+                qDebug() << "Failed to load run frame:" << pathFile;
             }
-            if (yOffset > window.height()) {
-                yOffset = -scaledPixmap.height();  // 从窗口顶部开始显示
+            runFrameList.push_back(frame);
+        }
+        for (int i = 0; i < numHit; ++i) {
+            QString pathFile = pathHit.arg(i);
+            QImage frame(pathFile);
+            if (frame.isNull()) {
+                qDebug() << "Failed to load hit frame:" << pathFile;
             }
+            hitFrameList.push_back(frame);
+        }
+    }
 
-            // 创建裁剪后的图像
-            QPixmap croppedPixmap = scaledPixmap.copy(0, 0, scaledPixmap.width(), scaledPixmap.height());
-            QPainter painter(&croppedPixmap); // 创建 QPainter 对象
+    void displayRun(QPainter& painter, int x, int y, int delta) {
+        timer += delta;
+        if (timer >= interval) {
+            idxRunFrame = (idxRunFrame + 1) % runFrameList.size();
+            timer = 0;
+        }
+        painter.drawImage(x, y, runFrameList[idxRunFrame]);
+    }
 
-            // 根据偏移量调整图像位置
-            painter.translate(xOffset, yOffset);
+    void displayHit(QPainter& painter, int x, int y, int delta) {
+        timer += delta;
+        if (timer >= interval + 20) {
+            idxHitFrame = (idxHitFrame + 1) % hitFrameList.size();
+            timer = 0;
+        }
+        painter.drawImage(x, y, hitFrameList[idxHitFrame]);
+    }
+};
 
-            // 设置裁剪后的图像到标签
-            imageLabel->setPixmap(croppedPixmap);
+class Small {
+private:
+    const int SPEED = 2;
+    Animation* animLeft;
+    Animation* animRight;
+    Point position = {0, 500};
+
+public:
+    Small() {
+        animLeft = new Animation("../img_small/left_%1.png", "../img_small/right_hit_%1.png", 8, 4, IMG_INTERVAL);
+        animRight = new Animation("../img_small/right_%1.png", "../img_small/right_hit_%1.png", 8, 4, IMG_INTERVAL);
+    }
+
+    ~Small() {
+        delete animLeft;
+        delete animRight;
+    }
+
+    void move() {
+        position.x += SPEED;
+    }
+
+    void draw(QPainter& painter, int delta, int playerSignal) {
+        if (playerSignal > 0) {
+            animLeft->displayHit(painter, position.x, position.y, delta);
+        } else {
+            animLeft->displayRun(painter, position.x, position.y, delta);
+        }
+    }
+};
+
+class GameWidget : public QWidget {
+    Q_OBJECT
+
+private:
+    QImage background;
+    Small test1;
+    int testLoop = 0;
+    int playerSignal = 0;
+    QTimer* timer;
+
+public:
+    GameWidget(QWidget* parent = nullptr) : QWidget(parent), background("test.png") {
+        if (background.isNull()) {
+            qDebug() << "Failed to load background image!";
+        }
+        timer = new QTimer(this);
+        connect(timer, &QTimer::timeout, this, &GameWidget::updateGame);
+        timer->start(1000 / 144);
+    }
+
+protected:
+    void paintEvent(QPaintEvent* event) override {
+        qDebug() << "paintEvent triggered";
+        QPainter painter(this);
+        painter.drawImage(0, 0, background);
+        test1.draw(painter, 1000 / 144, playerSignal);
+    }
+
+private slots:
+    void updateGame() {
+        testLoop++;
+
+        if (testLoop % 100 == 0) {
+            playerSignal = 24;
+        } else {
+            if (playerSignal > 0) {
+                playerSignal--;
+            }
         }
 
-        // 切换到下一张图片
-        currentImageIndex = (currentImageIndex + 1) % imagePaths.size();
-    });
+        if (playerSignal == 0) {
+            test1.move();
+        }
 
-    // 启动定时器，间隔时间为50毫秒
-    timer.start(50);
+        update();
+    }
+};
 
-    // 创建一个垂直布局并添加图片标签
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(imageLabel);
+int main(int argc, char* argv[]) {
+    QApplication app(argc, argv);
 
-    // 将布局设置为主窗口的布局
-    window.setLayout(layout);
+    GameWidget gameWidget;
+    gameWidget.resize(1280, 720);
+    gameWidget.show();
 
-    // 显示主窗口
-    window.show();
-
-    return QApplication::exec();
+    return app.exec();
 }
+
+#include "main.moc"
