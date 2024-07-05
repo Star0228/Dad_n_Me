@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-<<<<<<< HEAD
-  <component name="CMakePythonSetting">
-    <option name="pythonIntegrationState" value="YES" />
-  </component>
-=======
->>>>>>> 187561aa7d0e60eab51382b759e2506ca786404b
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
 </project>
