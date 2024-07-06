@@ -1,4 +1,3 @@
-
 #include <QWidget>
 #include <QApplication>
 #include <QPainter>
@@ -8,6 +7,7 @@
 #include <QString>
 #include <vector>
 #include <cmath>
+#include <QKeyEvent>
 
 const int SMALL_AY_NUM = 8;
 const int IMG_INTERVAL = 30;
@@ -21,31 +21,21 @@ class Animation {
 private:
     int timer = 0;
     int idxRunFrame = 0;
-    int idxHitFrame = 0;
     int interval = 0;
 
     std::vector<QImage> runFrameList;
-    std::vector<QImage> hitFrameList;
 
 public:
-    Animation(const QString& pathRun, const QString& pathHit, int numRun, int numHit, int interval)
+    Animation(const QString& pathRun, int numRun, int interval)
         : interval(interval)
     {
         for (int i = 0; i < numRun; ++i) {
             QString pathFile = pathRun.arg(i);
             QImage frame(pathFile);
             if (frame.isNull()) {
-                qDebug() << "Failed to load run frame:" << pathFile;
+                qDebug() << "无法加载跑动帧:" << pathFile;
             }
             runFrameList.push_back(frame);
-        }
-        for (int i = 0; i < numHit; ++i) {
-            QString pathFile = pathHit.arg(i);
-            QImage frame(pathFile);
-            if (frame.isNull()) {
-                qDebug() << "Failed to load hit frame:" << pathFile;
-            }
-            hitFrameList.push_back(frame);
         }
     }
 
@@ -57,45 +47,49 @@ public:
         }
         painter.drawImage(x, y, runFrameList[idxRunFrame]);
     }
-
-    void displayHit(QPainter& painter, int x, int y, int delta) {
-        timer += delta;
-        if (timer >= interval + 20) {
-            idxHitFrame = (idxHitFrame + 1) % hitFrameList.size();
-            timer = 0;
-        }
-        painter.drawImage(x, y, hitFrameList[idxHitFrame]);
-    }
 };
 
 class Small {
 private:
     const int SPEED = 2;
     Animation* animLeft;
-    Animation* animRight;
     Point position = {0, 500};
+    bool moveLeft = false;
+    bool moveRight = false;
+    bool moveUp = false;
+    bool moveDown = false;
 
 public:
     Small() {
-        animLeft = new Animation("../img_small/left_%1.png", "../img_small/right_hit_%1.png", 8, 4, IMG_INTERVAL);
-        animRight = new Animation("../img_small/right_%1.png", "../img_small/right_hit_%1.png", 8, 4, IMG_INTERVAL);
+        animLeft = new Animation("../img_small/left_%1.png", 8, IMG_INTERVAL);
     }
 
     ~Small() {
         delete animLeft;
-        delete animRight;
     }
+
+    void setMoveLeft(bool value) { moveLeft = value; }
+    void setMoveRight(bool value) { moveRight = value; }
+    void setMoveUp(bool value) { moveUp = value; }
+    void setMoveDown(bool value) { moveDown = value; }
 
     void move() {
-        position.x += SPEED;
+        if (moveLeft) {
+            position.x -= SPEED;
+        }
+        if (moveRight) {
+            position.x += SPEED;
+        }
+        if (moveUp) {
+            position.y -= SPEED;
+        }
+        if (moveDown) {
+            position.y += SPEED;
+        }
     }
 
-    void draw(QPainter& painter, int delta, int playerSignal) {
-        if (playerSignal > 0) {
-            animLeft->displayHit(painter, position.x, position.y, delta);
-        } else {
-            animLeft->displayRun(painter, position.x, position.y, delta);
-        }
+    void draw(QPainter& painter, int delta) {
+        animLeft->displayRun(painter, position.x, position.y, delta);
     }
 };
 
@@ -106,13 +100,12 @@ private:
     QImage background;
     Small test1;
     int testLoop = 0;
-    int playerSignal = 0;
     QTimer* timer;
 
 public:
     GameWidget(QWidget* parent = nullptr) : QWidget(parent), background("test.png") {
         if (background.isNull()) {
-            qDebug() << "Failed to load background image!";
+            qDebug() << "无法加载背景图片!";
         }
         timer = new QTimer(this);
         connect(timer, &QTimer::timeout, this, &GameWidget::updateGame);
@@ -121,28 +114,54 @@ public:
 
 protected:
     void paintEvent(QPaintEvent* event) override {
-        qDebug() << "paintEvent triggered";
+        qDebug() << "paintEvent 触发";
         QPainter painter(this);
         painter.drawImage(0, 0, background);
-        test1.draw(painter, 1000 / 144, playerSignal);
+        test1.draw(painter, 1000 / 144);
+    }
+
+    void keyPressEvent(QKeyEvent* event) override {
+        switch (event->key()) {
+        case Qt::Key_W:
+            test1.setMoveUp(true);
+            break;
+        case Qt::Key_A:
+            test1.setMoveLeft(true);
+            break;
+        case Qt::Key_S:
+            test1.setMoveDown(true);
+            break;
+        case Qt::Key_D:
+            test1.setMoveRight(true);
+            break;
+        default:
+            QWidget::keyPressEvent(event);
+        }
+    }
+
+    void keyReleaseEvent(QKeyEvent* event) override {
+        switch (event->key()) {
+        case Qt::Key_W:
+            test1.setMoveUp(false);
+            break;
+        case Qt::Key_A:
+            test1.setMoveLeft(false);
+            break;
+        case Qt::Key_S:
+            test1.setMoveDown(false);
+            break;
+        case Qt::Key_D:
+            test1.setMoveRight(false);
+            break;
+        default:
+            QWidget::keyReleaseEvent(event);
+        }
     }
 
 private slots:
     void updateGame() {
         testLoop++;
-
-        if (testLoop % 100 == 0) {
-            playerSignal = 24;
-        } else {
-            if (playerSignal > 0) {
-                playerSignal--;
-            }
-        }
-
-        if (playerSignal == 0) {
-            test1.move();
-        }
-
+        test1.move();
         update();
     }
 };
@@ -158,3 +177,4 @@ int main(int argc, char* argv[]) {
 }
 
 #include "main.moc"
+

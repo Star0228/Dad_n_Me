@@ -1,0 +1,26 @@
+# ninja log v5
+20	1093	7418956552865867	Dad_n_Me_autogen/timestamp	d5ea210eef16ab38
+20	1093	7418956552865867	Dad_n_Me_autogen/mocs_compilation.cpp	d5ea210eef16ab38
+20	1093	7418956552865867	F:/Dad_n_Me/cmake-build-debug/Dad_n_Me_autogen/timestamp	d5ea210eef16ab38
+20	1093	7418956552865867	F:/Dad_n_Me/cmake-build-debug/Dad_n_Me_autogen/mocs_compilation.cpp	d5ea210eef16ab38
+1093	1200	7418956554771063	CMakeFiles/Dad_n_Me.dir/Dad_n_Me_autogen/mocs_compilation.cpp.obj	d1f1a0adbb643119
+1100	2610	7418956568838259	CMakeFiles/Dad_n_Me.dir/main.cpp.obj	c8e8aa52ee961f67
+2617	3561	7418956571647455	Dad_n_Me.exe	fa683f9c9548fbc2
+72	1080	7418960795801799	Dad_n_Me_autogen/timestamp	d5ea210eef16ab38
+72	1080	7418960795801799	Dad_n_Me_autogen/mocs_compilation.cpp	d5ea210eef16ab38
+72	1080	7418960795801799	F:/Dad_n_Me/cmake-build-debug/Dad_n_Me_autogen/timestamp	d5ea210eef16ab38
+72	1080	7418960795801799	F:/Dad_n_Me/cmake-build-debug/Dad_n_Me_autogen/mocs_compilation.cpp	d5ea210eef16ab38
+1115	3352	7418960819412574	CMakeFiles/Dad_n_Me.dir/main.cpp.obj	c8e8aa52ee961f67
+3353	5313	7418960824544187	Dad_n_Me.exe	fa683f9c9548fbc2
+33	750	7418964516710178	Dad_n_Me_autogen/timestamp	d5ea210eef16ab38
+33	750	7418964516710178	Dad_n_Me_autogen/mocs_compilation.cpp	d5ea210eef16ab38
+33	750	7418964516710178	F:/Dad_n_Me/cmake-build-debug/Dad_n_Me_autogen/timestamp	d5ea210eef16ab38
+33	750	7418964516710178	F:/Dad_n_Me/cmake-build-debug/Dad_n_Me_autogen/mocs_compilation.cpp	d5ea210eef16ab38
+778	2215	7418964531322719	CMakeFiles/Dad_n_Me.dir/main.cpp.obj	c8e8aa52ee961f67
+2216	5081	7418964555313260	Dad_n_Me.exe	fa683f9c9548fbc2
+31	761	7418966177785037	Dad_n_Me_autogen/timestamp	d5ea210eef16ab38
+31	761	7418966177785037	Dad_n_Me_autogen/mocs_compilation.cpp	d5ea210eef16ab38
+31	761	7418966177785037	F:/Dad_n_Me/cmake-build-debug/Dad_n_Me_autogen/timestamp	d5ea210eef16ab38
+31	761	7418966177785037	F:/Dad_n_Me/cmake-build-debug/Dad_n_Me_autogen/mocs_compilation.cpp	d5ea210eef16ab38
+787	2242	7418966192563877	CMakeFiles/Dad_n_Me.dir/main.cpp.obj	c8e8aa52ee961f67
+2243	4831	7418966214225249	Dad_n_Me.exe	fa683f9c9548fbc2

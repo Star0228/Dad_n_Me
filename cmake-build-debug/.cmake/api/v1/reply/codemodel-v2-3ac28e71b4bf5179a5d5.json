@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Dad_n_Me",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Dad_n_Me::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Dad_n_Me-Debug-cde15101a3446ccf7abf.json",
+					"name" : "Dad_n_Me",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Dad_n_Me_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Dad_n_Me_autogen-Debug-0d33e9b64a9998ae9408.json",
+					"name" : "Dad_n_Me_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Dad_n_Me_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Dad_n_Me_autogen_timestamp_deps-Debug-2dad4a9b782935bcb662.json",
+					"name" : "Dad_n_Me_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "F:/Dad_n_Me/cmake-build-debug",
+		"source" : "F:/Dad_n_Me"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

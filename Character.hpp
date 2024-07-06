@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include <iostream>
 #include <string>
 
@@ -119,5 +118,3 @@ public:
         health -= damage;
     }
 };
-
->>>>>>> 187561aa7d0e60eab51382b759e2506ca786404b
