@@ -6,18 +6,20 @@
 #include <QImage>
 #include <QDebug>
 #include <QString>
+#include <cmath>
 #include <vector>
 #include <cmath>
 #include <QHash>
 #include <cstdlib>
+#include <iostream>
 #include <QKeyEvent>
 
 const int SMALL_AY_NUM = 8;
 const int IMG_INTERVAL = 30;
 
 struct Point {
-    int x;
-    int y;
+    float x;
+    float y;
 };
 
 
@@ -59,7 +61,7 @@ public:
     std::vector<QImage> attackFrameList; // 新添加的攻击动画帧列表
 
 
-    Animation(const QString& pathRun, const QString& pathHit, int numRun, int numHit, int interval, bool hasAttackFrames = false)
+    Animation(const QString& pathRun, const QString& pathHit, int numRun, int numHit, int interval, int attackFrames = 0)
         : interval(interval)
     {
         for (int i = 1; i <= numRun; ++i) {
@@ -79,11 +81,23 @@ public:
             hitFrameList.push_back(frame);
         }
 
-        if (hasAttackFrames) {
+        if (attackFrames == 1) { // 此时表示需要载入Boss的攻击模组
             // 初始化攻击帧列表
             // boss的攻击帧数为14
             for (int i = 1; i <= 14; ++i) {
-                QString pathFile = QString("../img_boss_hit/%1.png").arg(i);
+                QString pathFile = QString("../img_boss_attack/%1.png").arg(i);
+                QImage frame = ResourceManager::getInstance().getImage(pathFile);
+                if (frame.isNull()) {
+                    qDebug() << "Failed to load attack frame:" << pathFile;
+                }
+                attackFrameList.push_back(frame);
+                //std::cout << attackFrameList.size() << std::endl;
+            }
+        }
+        else if (attackFrames == 2) // 此时需要载入玩家的攻击模组
+        {
+            for (int i = 1; i <= 21; ++i) {
+                QString pathFile = QString("../img_player_attack/%1.png").arg(i);
                 QImage frame = ResourceManager::getInstance().getImage(pathFile);
                 if (frame.isNull()) {
                     qDebug() << "Failed to load attack frame:" << pathFile;
@@ -93,19 +107,34 @@ public:
         }
     }
 
-    void displayRun(QPainter& painter, int x, int y, int timer, int idxRunFrame) {
+    void displayRun(QPainter& painter, int x, int y, int timer, int idxRunFrame, bool facingRight = true) {
         if (runFrameList.empty()) return;
-        painter.drawImage(x, y, runFrameList[idxRunFrame]);
+        QImage frame = runFrameList[idxRunFrame];
+        if (!facingRight)
+        {
+            frame = frame.mirrored(true, false);
+        }
+        painter.drawImage(x, y, frame);
     }
 
-    void displayHit(QPainter& painter, int x, int y, int timer, int idxHitFrame) {
+    void displayHit(QPainter& painter, int x, int y, int timer, int idxHitFrame, bool facingRight = true) {
         if (hitFrameList.empty()) return;
-        painter.drawImage(x, y, hitFrameList[idxHitFrame]);
+        QImage frame = hitFrameList[idxHitFrame];
+        if (!facingRight)
+        {
+            frame = frame.mirrored(true, false);
+        }
+        painter.drawImage(x, y, frame);
     }
 
-    void displayAttack(QPainter& painter, int x, int y, int timer, int idxAttackFrame) {
+    void displayAttack(QPainter& painter, int x, int y, int timer, int idxAttackFrame, bool facingRight = true) {
         if (attackFrameList.empty()) return;
-        painter.drawImage(x, y, attackFrameList[idxAttackFrame]);
+        QImage frame = attackFrameList[idxAttackFrame];
+        if (!facingRight)
+        {
+            frame = frame.mirrored(true, false);
+        }
+        painter.drawImage(x, y, frame);
     }
 
     int getInterval() const {
@@ -126,11 +155,85 @@ public:
 };
 
 
+class Player {
+public:
+    Animation* anim;
+    Point position;
+    float speed;
+    bool facingRight;
+    int timer = 0;
+
+    int idxRunFrame = 0;
+    int idxAttackFrame = 0;
+
+    bool isAttacking = false;
+    int attackFrameCounter = 0;
+
+    Player(float startX, float startY, Animation* playerAnim, int speed)
+        : position{startX, startY}, anim(playerAnim), speed(speed), facingRight(true) {}
+
+    void moveLeft() {
+        position.x -= speed;
+        facingRight = false;
+    }
+
+    void moveRight() {
+        position.x += speed;
+        facingRight = true;
+    }
+
+    void moveUp() {
+        position.y -= speed;
+    }
+
+    void moveDown() {
+        position.y += speed;
+    }
+
+    void attack() {
+        isAttacking = true;
+        timer = 0;
+        idxAttackFrame = 0;
+        attackFrameCounter = 21;
+    }
+
+    void draw(QPainter& painter, int delta) {
+        timer += delta;
+
+        if (attackFrameCounter == 20)
+        {
+            isAttacking = false;
+        }
+
+        //首先判定是否正在攻击
+        if (attackFrameCounter > 0)
+        {
+            if (timer >= anim->getInterval()) {
+                idxAttackFrame = (idxAttackFrame + 1) % anim->getAttackFrameCount();
+                timer = 0;
+                attackFrameCounter --;
+            }
+            anim->displayAttack(painter, position.x, position.y - 70, timer, idxAttackFrame, facingRight); // 调整了y方向参数来保证图片显示位置的一致性
+        }
+        else
+        {
+            if (timer >= anim->getInterval()) {
+                idxRunFrame = (idxRunFrame + 1) % anim->getRunFrameCount();
+                timer = 0;
+            }
+            anim->displayRun(painter, position.x, position.y, timer, idxRunFrame, facingRight);
+        }
+    }
+
+    Point getPosition() const {
+        return position;
+    }
+};
 
 
 class Small {
 private:
-    const int SPEED = 2;
+    const float SPEED = 2;
     Animation* animLeft;
     Animation* animRight;
     Point position{};
@@ -142,7 +245,7 @@ private:
     int idxHitFrame = 0;
 
 public:
-    Small(int startX, int startY, Animation* animLeft, Animation* animRight)
+    Small(float startX, float startY, Animation* animLeft, Animation* animRight)
         : position{startX, startY}, animLeft(animLeft), animRight(animRight) {}
 
     // 移动构造函数
@@ -205,7 +308,7 @@ public:
 class Boss
 {
 private:
-    const int SPEED = 2;
+    const float SPEED = 1;
     Animation* anim;
     Point position{};
 
@@ -215,6 +318,11 @@ private:
     int idxRunFrame = 0;
     int idxHitFrame = 0;
     int idxAttackFrame = 0;
+
+    bool facingRight = true;
+
+    bool isHit = false;
+    int hitFrameCount = 0;
 
 public:
     Boss(Animation* animBoss)
@@ -233,9 +341,7 @@ public:
           idxRunFrame(other.idxRunFrame),
           idxHitFrame(other.idxHitFrame),
           idxAttackFrame(other.idxAttackFrame)
-    {
-        // Additional members to move if needed
-    }
+    {}
 
     // Move assignment operator
     Boss& operator=(Boss&& other) noexcept {
@@ -252,69 +358,87 @@ public:
         return *this;
     }
 
-    void draw(QPainter& painter, int delta, int playerSignal) {
+    void move(Player* player)
+    {
+        float dx = position.x - player->position.x;
+        float dy = position.y - player->position.y;
+        float dist = std::sqrt(dx*dx + dy*dy);
+
+        if (dx < 0)
+        {
+            facingRight = true;
+        }else
+        {
+            facingRight = false;
+        }
+        if (dist < 120)
+        {
+            facingRight = true;
+            return;
+        }
+
+        position.x -= SPEED * dx / dist;
+        position.y -= SPEED * dy / dist;
+    }
+
+    void checkHurt(Player* player)
+    {
+        float dx = position.x - player->position.x;
+        float dy = position.y - player->position.y;
+        float dist = std::sqrt(dx*dx + dy*dy);
+
+        if (player->isAttacking && dist < 300)
+        {
+            currentBlood -= 10;
+            isHit = true;
+            hitFrameCount = 14;
+        }
+    }
+
+    void draw(QPainter& painter, int delta, Player* player)
+    {
+        // 计算boss和player的距离
+        float dx = position.x - player->position.x;
+        float dy = position.y - player->position.y;
+        float dist = std::sqrt(dx*dx + dy*dy);
+
+        if (hitFrameCount == 0)
+        {
+            isHit = false;
+        }
+
+        // 首先判断boss是否收到攻击
         timer += delta;
-        if (1)
+        if (isHit == true && hitFrameCount > 0)
         {
             if (timer >= anim->getInterval()) {
-                idxHitFrame = (idxHitFrame + 1) % anim->getAttackFrameCount();
+                idxHitFrame = (idxHitFrame + 1) % anim->getHitFrameCount();
+                timer = 0;
+                hitFrameCount --;
+            }
+            anim->displayHit(painter, position.x, position.y - 20, timer, idxHitFrame, facingRight);
+        }
+        else if (dist < 120)
+        {
+            if (timer >= anim->getInterval()) {
+                idxAttackFrame = (idxAttackFrame + 1) % anim->getAttackFrameCount();
                 timer = 0;
             }
-            anim->displayAttack(painter, position.x, position.y, timer, idxHitFrame);
+            anim->displayAttack(painter, position.x, position.y, timer, idxAttackFrame, facingRight);
+        }
+        else
+        {
+            if (timer >= anim->getInterval()) {
+                idxRunFrame = (idxRunFrame + 1) % anim->getRunFrameCount();
+                timer = 0;
+            }
+            anim->displayRun(painter, position.x, position.y, timer, idxRunFrame, facingRight);
         }
     }
 };
 
 
-class Player {
-private:
-    Animation* playerRun;
-    Point position;
-    int speed;
-    bool facingRight;
-    int timer = 0;
-    int idxRunFrame = 0;
 
-public:
-    Player(int startX, int startY, Animation* playerRun, int speed)
-        : position{startX, startY}, playerRun(playerRun), speed(speed), facingRight(true) {}
-
-    void moveLeft() {
-        position.x -= speed;
-        facingRight = false;
-    }
-
-    void moveRight() {
-        position.x += speed;
-        facingRight = true;
-    }
-
-    void moveUp() {
-        position.y -= speed;
-    }
-
-    void moveDown() {
-        position.y += speed;
-    }
-
-    void draw(QPainter& painter, int delta) {
-        timer += delta;
-        if (timer >= playerRun->getInterval()) {
-            idxRunFrame = (idxRunFrame + 1) % playerRun->getRunFrameCount();
-            timer = 0;
-        }
-
-        QImage frame = playerRun->runFrameList[idxRunFrame];
-        if (!facingRight) {
-            frame = frame.mirrored(true, false); // 左右翻转
-        }
-        painter.drawImage(position.x, position.y, frame);
-    }
-
-    Point getPosition() const {
-        return position;
-    }
-};
 
 
 
@@ -329,7 +453,7 @@ private:
     Boss boss;
 
     //玩家
-    Animation* playerRun;
+    Animation* animPlayer;
     Player* player;
 
     int testLoop = 0;
@@ -352,13 +476,13 @@ public:
         animLeftSmall = new Animation("../img_small/%1.png", "../img_small/hit_%1.png", 8, 14, IMG_INTERVAL);
         animRightSmall = new Animation("../img_small/%1.png", "../img_small/hit_%1.png", 8, 14, IMG_INTERVAL);
 
-        animBoss = new Animation("../img_boss_run/%1.png", "../img_boss_hit/hit_%1.png", 8, 14, IMG_INTERVAL, true);
+        animBoss = new Animation("../img_boss_run/%1.png", "../img_boss_hit/%1.png", 8, 14, IMG_INTERVAL, 1);
 
-        playerRun = new Animation("../resource/Player/run_r/%1.png", "../resource/Player/walk_r/%1.png", 6, 11, IMG_INTERVAL);
+        animPlayer = new Animation("../resource/Player/run_r/%1.png", "../resource/Player/walk_r/%1.png", 6, 11, IMG_INTERVAL, 2);
 
         boss = Boss(animBoss);
 
-        player = new Player(640, 360, playerRun, 5); // 初始化玩家位置和速度
+        player = new Player(640, 360, animPlayer, 12); // 初始化玩家位置和速度
         setFocusPolicy(Qt::StrongFocus); // 设置焦点策略以接收键盘事件
     }
 
@@ -374,16 +498,17 @@ protected:
         painter.drawImage(0, 0, background);
 
         for (Small& small : smallObjects) {
-            small.draw(painter, 1000 / 144, playerSignal);
+            //small.draw(painter, 1000 / 144, playerSignal);
         }
 
-        boss.draw(painter, 1000 /144, playerSignal);
+        boss.draw(painter, 1000 /144, player);
 
         player->draw(painter, 1000 / 144); // 绘制玩家
     }
 
     void keyPressEvent(QKeyEvent* event) override {
-        switch (event->key()) {
+        switch (event->key())
+        {
         case Qt::Key_Left:
             player->moveLeft();
             break;
@@ -395,6 +520,9 @@ protected:
             break;
         case Qt::Key_Down:
             player->moveDown();
+            break;
+        case Qt::Key_S:
+            player->attack();
             break;
         }
     }
@@ -436,6 +564,9 @@ private slots:
                 small.move();
             }
         }
+
+        boss.checkHurt(player);
+        boss.move(player);
 
         update();
     }
