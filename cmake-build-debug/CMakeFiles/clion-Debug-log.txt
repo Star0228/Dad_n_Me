@@ -1,4 +1,4 @@
-"E:\CLion\CLion 2024.1.1\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=E:/CLion/CLion 2024.1.1/bin/ninja/win/x64/ninja.exe" -G Ninja -S F:\Dad_n_Me -B F:\Dad_n_Me\cmake-build-debug
+"E:\CLion\CLion 2024.1.1\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=E:/CLion/CLion 2024.1.1/bin/ninja/win/x64/ninja.exe" -G Ninja -S E:\Dad_n_Me -B E:\Dad_n_Me\cmake-build-debug
 -- The C compiler identification is GNU 11.2.0
 -- The CXX compiler identification is GNU 11.2.0
 -- Detecting C compiler ABI info
@@ -18,6 +18,6 @@
 -- Performing Test HAVE_STDATOMIC - Success
 -- Found WrapAtomic: TRUE  
 -- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
--- Configuring done (5.9s)
--- Generating done (0.1s)
--- Build files have been written to: F:/Dad_n_Me/cmake-build-debug
+-- Configuring done (4.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: E:/Dad_n_Me/cmake-build-debug
