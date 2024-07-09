@@ -26,23 +26,19 @@
 class Common {
 private:
     const float SPEED = 2;
-    Animation* animLeft;
-    Animation* animRight;
     Point position{};
 
-    int isHit = 0;
+    bool isHit = false;
 
-    int timer = 0;
-    int idxRunFrame = 0;
-    int idxHitFrame = 0;
+    int hit_timer = 0;
+    bool FacingRight = true;
 
 public:
-    Common(float startX, float startY, Animation* animLeft, Animation* animRight)
-            : position{startX, startY}, animLeft(animLeft), animRight(animRight) {}
+    Common(float startX, float startY)
+            : position{startX, startY} {}
 
     // 移动构造函数
-    Common(Common&& other) noexcept
-            : animLeft(nullptr), animRight(nullptr) {
+    Common(Common&& other) noexcept{
         *this = std::move(other);
     }
 
@@ -51,11 +47,7 @@ public:
         if (this != &other) {
             position = other.position;
             isHit = other.isHit;
-            animLeft = std::exchange(other.animLeft, nullptr);
-            animRight = std::exchange(other.animRight, nullptr);
-            timer = other.timer;
-            idxRunFrame = other.idxRunFrame;
-            idxHitFrame = other.idxHitFrame;
+            hit_timer = other.hit_timer;
             isHit = other.isHit;
         }
         return *this;
@@ -65,34 +57,32 @@ public:
         position.x += SPEED;
     }
 
-    bool hasFinishedHitAnimation() const {
-        return isHit && idxHitFrame == animLeft->getHitFrameCount() - 1;
-    }
-
-
-    void draw(QPainter& painter, int delta, int playerSignal) {
-        timer += delta;
-        if (playerSignal > 0)
-        {
-            isHit = 1;
-        }
-        if (isHit == 1) {
-            if (timer >= animLeft->getInterval()) {
-                idxHitFrame = (idxHitFrame + 1) % animLeft->getHitFrameCount();
-                timer = 0;
-            }
-            animLeft->displayHit(painter, position.x, position.y - 100, timer, idxHitFrame);
-        } else {
-            if (timer >= animLeft->getInterval()) {
-                idxRunFrame = (idxRunFrame + 1) % animLeft->getRunFrameCount();
-                timer = 0;
-            }
-            animLeft->displayRun(painter, position.x, position.y, timer, idxRunFrame);
-        }
-    }
-
     Point getPosition() const {
         return position;
+    }
+
+    bool GetIsHit(){
+        return isHit;
+    }
+
+    void Change_IsHit(bool signal){
+        isHit = signal;
+    }
+
+    int GetTimer(){
+        return hit_timer;
+    }
+
+    bool GetFacingRight(){
+        return FacingRight;
+    }
+
+    void AddTimer(int adder){
+        hit_timer += adder;
+    }
+
+    void ResetTimer(){
+        hit_timer = 0;
     }
 };
 

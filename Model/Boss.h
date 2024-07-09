@@ -27,133 +27,112 @@
 class Boss
 {
 private:
-    const float SPEED = 1;
-    Animation* anim;
+    const int SPEED = 1;
     Point position{};
 
     int currentBlood = 100;
 
-    int timer = 0;
-    int idxRunFrame = 0;
-    int idxHitFrame = 0;
-    int idxAttackFrame = 0;
-
-    bool facingRight = true;
-
+    int hit_timer = 0;
+    bool FacingRight = true;
     bool isHit = false;
-    int hitFrameCount = 0;
 
 public:
-    Boss(Animation* animBoss)
-            : anim(animBoss)
-    {
-        position.x=1100;
-        position.y=300;
+    Boss(float startx = 1100,float starty =300){
+        position.x = startx;
+        position.y = starty;
     }
 
     // 实现移动构造函数和移动赋值运算符
     Boss(Boss&& other) noexcept
-            : anim(std::exchange(other.anim, nullptr)),
-              position(other.position),
+            : position(other.position),
               currentBlood(other.currentBlood),
-              timer(other.timer),
-              idxRunFrame(other.idxRunFrame),
-              idxHitFrame(other.idxHitFrame),
-              idxAttackFrame(other.idxAttackFrame)
+              hit_timer(other.hit_timer)
     {}
 
     // Move assignment operator
     Boss& operator=(Boss&& other) noexcept {
         if (this != &other) {
-            anim = std::exchange(other.anim, nullptr);
             position = other.position;
             currentBlood = other.currentBlood;
-            timer = other.timer;
-            idxRunFrame = other.idxRunFrame;
-            idxHitFrame = other.idxHitFrame;
-            idxAttackFrame = other.idxAttackFrame;
+            hit_timer = other.hit_timer;
             // Additional members to move if needed
         }
         return *this;
     }
 
-    void move(Player* player)
+    void move(Player& player)
     {
-        float dx = position.x - player->position.x;
-        float dy = position.y - player->position.y;
+        float dx = position.x - player.getPosition().x;
+        float dy = position.y - player.getPosition().y;
         float dist = std::sqrt(dx*dx + dy*dy);
 
-        if (dx < 0)
-        {
-            facingRight = true;
-        }else
-        {
-            facingRight = false;
-        }
         if (dist < 120)
         {
-            facingRight = true;
+            if (dx < 0)
+            {
+                FacingRight = false;
+            }else
+            {
+                FacingRight = true;
+            }
             return;
+        }else{
+            if (dx < 0)
+            {
+                FacingRight = true;
+            }else
+            {
+                FacingRight = false;
+            }
         }
+
+
 
         position.x -= SPEED * dx / dist;
         position.y -= SPEED * dy / dist;
     }
 
-    void checkHurt(Player* player)
+    void checkHurt(Player& player)
     {
-        float dx = position.x - player->position.x;
-        float dy = position.y - player->position.y;
+        float dx = position.x - player.getPosition().x;
+        float dy = position.y - player.getPosition().y;
         float dist = std::sqrt(dx*dx + dy*dy);
 
-        if (player->isAttacking && dist < 300)
+        if (player.GetIsAttack() && dist < 300)
         {
             currentBlood -= 10;
             isHit = true;
-            hitFrameCount = 14;
         }
     }
 
-    void draw(QPainter& painter, int delta, Player* player)
-    {
-        // 计算boss和player的距离
-        float dx = position.x - player->position.x;
-        float dy = position.y - player->position.y;
-        float dist = std::sqrt(dx*dx + dy*dy);
-
-        if (hitFrameCount == 0)
-        {
-            isHit = false;
-        }
-
-        // 首先判断boss是否收到攻击
-        timer += delta;
-        if (isHit == true && hitFrameCount > 0)
-        {
-            if (timer >= anim->getInterval()) {
-                idxHitFrame = (idxHitFrame + 1) % anim->getHitFrameCount();
-                timer = 0;
-                hitFrameCount --;
-            }
-            anim->displayHit(painter, position.x, position.y - 20, timer, idxHitFrame, facingRight);
-        }
-        else if (dist < 120)
-        {
-            if (timer >= anim->getInterval()) {
-                idxAttackFrame = (idxAttackFrame + 1) % anim->getAttackFrameCount();
-                timer = 0;
-            }
-            anim->displayAttack(painter, position.x, position.y, timer, idxAttackFrame, facingRight);
-        }
-        else
-        {
-            if (timer >= anim->getInterval()) {
-                idxRunFrame = (idxRunFrame + 1) % anim->getRunFrameCount();
-                timer = 0;
-            }
-            anim->displayRun(painter, position.x, position.y, timer, idxRunFrame, facingRight);
-        }
+    Point Getposition(){
+        return position;
     }
+
+    bool GetIsHit(){
+        return isHit;
+    }
+
+    void Change_IsHit(bool signal){
+        isHit = signal;
+    }
+
+    int GetTimer(){
+        return hit_timer;
+    }
+
+    bool GetFacingRight(){
+        return FacingRight;
+    }
+
+    void AddTimer(int adder){
+        hit_timer += adder;
+    }
+
+    void ResetTimer(){
+        hit_timer = 0;
+    }
+
 };
 
 
