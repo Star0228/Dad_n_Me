@@ -66,30 +66,19 @@ public:
         float dy = position.y - player.getPosition().y;
         float dist = std::sqrt(dx*dx + dy*dy);
 
-        if (dist < 120)
+        if (dx < 10)
         {
-            if (dx < 0)
-            {
-                FacingRight = false;
-            }else
-            {
-                FacingRight = true;
-            }
-            return;
-        }else{
-            if (dx < 0)
-            {
-                FacingRight = true;
-            }else
-            {
-                FacingRight = false;
-            }
+            FacingRight = true;
+        }else
+        {
+            FacingRight = false;
         }
 
-
-
-        position.x -= SPEED * dx / dist;
-        position.y -= SPEED * dy / dist;
+        if (dist > 100)
+        {
+            position.x -= SPEED * dx / dist;
+            position.y -= SPEED * dy / dist;
+        }
     }
 
     void checkHurt(Player& player)

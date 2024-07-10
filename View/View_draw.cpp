@@ -16,11 +16,8 @@ Animation* View_draw::Get_anim_Common_hit(){
 }
 
 void View_draw::draw(Player& player,QPainter& painter, int delta){
-//    if(player.GetHitTimer()==0){
-//        Idx_Player_attack = 0;
-//    }
     player.AddTimer(delta);
-    if (Idx_Player_attack == 20 )
+    if (Idx_Player_attack == 19 )
     {
         player.Change_Isattack(false);
         Idx_Player_attack = 0;
@@ -29,7 +26,7 @@ void View_draw::draw(Player& player,QPainter& painter, int delta){
     //首先判定是否正在攻击
     if (Idx_Player_attack < 20 && player.GetIsAttack())
     {
-        if (player.GetHitTimer() >= anim_Player_attack->GetInterval()) {
+        if (player.GetHitTimer() >= anim_Player_attack->GetInterval() - 10) {
             Idx_Player_attack = (Idx_Player_attack + 1) % anim_Player_attack->GetFrameCount();
             player.ResetTimer();
         }
@@ -76,16 +73,17 @@ void View_draw::draw(Boss& boss,Player& player,QPainter& painter, int delta){
     float dy = position.y - player.getPosition().y;
     float dist = std::sqrt(dx*dx + dy*dy);
 
-    if (Idx_Boss_Hit == 14)
+    if (Idx_Boss_Hit == 13)
     {
         boss.Change_IsHit(false);
+        Idx_Boss_Hit = 0;
     }
 
     // 首先判断boss是否收到攻击
     boss.AddTimer(delta);
-    if (boss.GetIsHit() && Idx_Boss_Hit > 0)
+    if (boss.GetIsHit())
     {
-        if (boss.GetIsHit() >= anim_Boss_hit->GetInterval()) {
+        if (boss.GetTimer() >= anim_Boss_hit->GetInterval() - 10) {
             Idx_Boss_Hit = (Idx_Boss_Hit + 1) % anim_Boss_hit->GetFrameCount();
             boss.ResetTimer();
         }
@@ -99,7 +97,7 @@ void View_draw::draw(Boss& boss,Player& player,QPainter& painter, int delta){
             boss.ResetTimer();
         }
         anim_Boss_attack->Display(painter, position.x, position.y,
-                                  Idx_Boss_Attack, boss.GetFacingRight());
+                                  Idx_Boss_Attack, !boss.GetFacingRight());
     }
     else
     {
