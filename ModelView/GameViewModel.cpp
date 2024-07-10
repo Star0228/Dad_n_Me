@@ -3,11 +3,11 @@
 const int SMALL_AY_NUM = 8;
 const int IMG_INTERVAL = 30;
 
-GameViewModel::GameViewModel(QObject* parent)
-    : QObject(parent), boss(nullptr), player(nullptr) {
-    timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, &GameViewModel::updateGame);
-    timer->start(1000 / 144);
+GameViewModel::GameViewModel(QWidget* parent)
+    : QWidget(parent), boss(nullptr), player(nullptr) {
+    // timer = new QTimer(this);
+    // connect(timer, &QTimer::timeout, this, &GameViewModel::updateGame);
+    // timer->start(1000 / 144);
 
     animLeftSmall = new Animation("../resource/Enemy_common/run/%1.png", "../resource/Enemy_common/is_hit/hit_%1.png", 8, 14, IMG_INTERVAL);
     animRightSmall = new Animation("../resource/Enemy_common/run/%1.png", "../resource/Enemy_common/is_hit/hit_%1.png", 8, 14, IMG_INTERVAL);
@@ -16,7 +16,7 @@ GameViewModel::GameViewModel(QObject* parent)
 
     animPlayer = new Animation("../resource/Player/run/%1.png", "../resource/Player/walk/%1.png", 6, 11, IMG_INTERVAL, 2);
 
-    boss = Boss(animBoss);
+    boss = new Boss(animBoss);
 
     player = new Player(640, 360, animPlayer, 12);
 
@@ -67,10 +67,10 @@ void GameViewModel::updateGame() {
         }
     }
 
-    boss.checkHurt(player);
-    boss.move(player);
+    boss->checkHurt(player);
+    boss->move(player);
 
-    emit gameUpdated();
+    update();
 }
 
 void GameViewModel::handleKeyPress(int key) {

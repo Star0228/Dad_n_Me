@@ -22,6 +22,7 @@ public:
 
 
     Common(float startX, float startY, Animation* animLeft, Animation* animRight);
+    Common(const Common& other);
     Common(Common&& other) noexcept;
     Common& operator=(Common&& other) noexcept;
 

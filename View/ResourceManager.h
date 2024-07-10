@@ -13,11 +13,7 @@
 #include <QDebug>
 #include <QString>
 #include <cmath>
-#include <vector>
-#include <cmath>
 #include <QHash>
-#include <cstdlib>
-#include <iostream>
 #include <QKeyEvent>
 
 

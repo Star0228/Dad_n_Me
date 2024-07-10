@@ -3,6 +3,22 @@
 Common::Common(float startX, float startY, Animation* animLeft, Animation* animRight)
     : position{startX, startY}, animLeft(animLeft), animRight(animRight) {}
 
+Common::Common(const Common& other)
+    : position(other.position), // 深度拷贝位置信息
+      animLeft(new Animation(*other.animLeft)), // 深度拷贝左侧动画
+      animRight(new Animation(*other.animRight)), // 深度拷贝右侧动画
+      timer(other.timer),
+      idxRunFrame(other.idxRunFrame),
+      idxHitFrame(other.idxHitFrame),
+      isHit(other.isHit),
+      isReversed(other.isReversed),
+      speed(other.speed)
+{
+    // 如果需要进行更多的深度拷贝，可以在这里实现
+}
+
+
+
 Common::Common(Common&& other) noexcept
     : animLeft(nullptr), animRight(nullptr) {
     *this = std::move(other);

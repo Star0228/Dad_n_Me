@@ -13,17 +13,17 @@
 #include <vector>
 #include "../View/Animation.h"
 
-class GameViewModel : public QObject {
+class GameViewModel : public QWidget {
     Q_OBJECT
 
 public:
-    explicit GameViewModel(QObject* parent = nullptr);
-    ~GameViewModel();
+    explicit GameViewModel(QWidget* parent = nullptr);
+    ~GameViewModel() override;
 
     Player* getPlayer() const { return player; }
-    const std::vector<Common>& getSmallEnemies() const { return smallObjects; }
-    Boss* getBoss() const { return &boss; }
-
+    const QVector<Common>& getSmallEnemies() const { return smallObjects; }
+    Boss* getBoss() const { return boss; }
+    Background *getBackground() const {return background; }
 public slots:
     void handleKeyPress(int key);
     void handleKeyRelease(int key);
@@ -31,15 +31,15 @@ public slots:
 signals:
     void gameUpdated();
 
-private slots:
+public slots:
     void updateGame();
 
 private:
     void addObstacles();
 
-    Background background;
-    std::vector<Common> smallObjects;
-    Boss boss;
+    QVector<Common> smallObjects;
+    Boss* boss;
+    Background* background;
     QVector<QRect> obstacles;
     Animation* animPlayer;
     Player* player;
