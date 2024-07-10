@@ -63,7 +63,6 @@ public:
     int GetFrameCount() const {
         return FrameList.size();
     }
-
 };
 
 

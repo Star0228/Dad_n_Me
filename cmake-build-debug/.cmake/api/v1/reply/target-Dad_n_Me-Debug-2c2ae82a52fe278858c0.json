@@ -285,11 +285,11 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "Dad_n_Me_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
-		},
-		{
 			"backtrace" : 0,
 			"id" : "Dad_n_Me_autogen::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "Dad_n_Me_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "Dad_n_Me::@6890427a1f51a3e7e1df",
@@ -434,7 +434,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "ModelView/GameWidget.cpp",
+			"path" : "View/GameWidget.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{

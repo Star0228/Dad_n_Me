@@ -1,15 +1,16 @@
 
 #include <QApplication>
-#include "ModelView/GameWidget.h"
+#include "View/GameWidget.h"
 #include "ModelView/ViewModel.h"
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
 
-    Background bg;
+
     std::vector<Common> commons;
     Boss boss;
     QVector<QRect> obstacles;
+    Background bg = Background(Qt::blue);
     Player player(640, 360, 12);
     int playerSignal = 0;
     View_draw view;

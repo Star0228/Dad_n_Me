@@ -17,7 +17,7 @@
 #include "../Model/Player.h"
 #include "../View/View_draw.h"
 #include "../Model/Background.h"
-#include "ViewModel.h"
+#include "../ModelView/ViewModel.h"
 
 class GameWidget : public QWidget {
     Q_OBJECT
@@ -47,11 +47,6 @@ public:
 
         connect(timer, &QTimer::timeout, this, &GameWidget::updateGame);
         timer->start(1000 / 144);
-
-        if (background && obstacles) {
-            background->addObstacles(*obstacles); // 添加障碍物
-        }
-
         setFocusPolicy(Qt::StrongFocus); // 设置焦点策略以接收键盘事件
     }
 

@@ -10,7 +10,12 @@ class GameViewModel : public QObject {
 
 public:
     explicit GameViewModel(QObject* parent = nullptr, Player* p = nullptr, Boss* b = nullptr, Background* bg = nullptr, QVector<QRect>* obs = nullptr, std::vector<Common>* co = nullptr)
-        : QObject(parent), player(p), boss(b), background(bg), obstacles(obs), smallEnemies(co) {}
+        : QObject(parent), player(p), boss(b), background(bg), obstacles(obs), smallEnemies(co) {
+
+        if (background && obstacles) {
+            background->addObstacles(obstacles); // 添加障碍物
+        }
+    }
     void handleKeyPress(int key);
     void handleKeyRelease(int key);
     void updateGame();

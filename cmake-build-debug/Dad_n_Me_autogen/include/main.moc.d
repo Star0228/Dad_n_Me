@@ -4,9 +4,9 @@ E:/Dad_n_Me/cmake-build-debug/Dad_n_Me_autogen/include/main.moc: E:/Dad_n_Me/mai
   E:/Dad_n_Me/Model/Boss.h \
   E:/Dad_n_Me/Model/Common.h \
   E:/Dad_n_Me/Model/Player.h \
-  E:/Dad_n_Me/ModelView/GameWidget.h \
   E:/Dad_n_Me/ModelView/ViewModel.h \
   E:/Dad_n_Me/View/Animation.h \
+  E:/Dad_n_Me/View/GameWidget.h \
   E:/Dad_n_Me/View/ResourceManager.h \
   E:/Dad_n_Me/View/View_draw.h \
   E:/Qt/6.6.3/mingw_64/include/QtCore/QDebug \

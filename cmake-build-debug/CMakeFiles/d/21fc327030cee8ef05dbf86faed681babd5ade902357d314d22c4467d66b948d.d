@@ -1,25 +1,102 @@
 Dad_n_Me_autogen/timestamp: \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/bin/cmake.exe \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCCompiler.cmake.in \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCCompilerABI.c \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCInformation.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCXXCompiler.cmake.in \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCXXInformation.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCompilerIdDetection.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineCompileFeatures.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineRCCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeFindBinUtils.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeGenericSystem.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeParseImplicitIncludeInfo.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeParseImplicitLinkInfo.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeParseLibraryArchitecture.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeRCCompiler.cmake.in \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeRCInformation.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeSystem.cmake.in \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeTestCCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeTestCompilerCommon.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeTestRCCompiler.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCXXCompilerFlag.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckCXXSourceCompiles.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckIncludeFile.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/CheckLibraryExists.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/ADSP-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/ARMCC-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/ARMClang-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/AppleClang-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/Borland-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/Bruce-C-DetermineCompiler.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/Clang-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/Clang-DetermineCompilerInternal.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/Compaq-C-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/Cray-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/CrayClang-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/Embarcadero-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/Fujitsu-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GHS-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-C-DetermineCompiler.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-C.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-FindBinUtils.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/HP-C-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/HP-CXX-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/IAR-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/Intel-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/LCC-C-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/MSVC-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/NVHPC-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/NVIDIA-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/OrangeC-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/PGI-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/PathScale-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/SCO-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/SDCC-C-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/SunPro-C-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/TI-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/Tasking-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/Watcom-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/XL-C-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/XL-CXX-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/XLClang-C-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/zOS-C-DetermineCompiler.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/FindPackageMessage.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/FindThreads.cmake \
@@ -28,6 +105,8 @@ Dad_n_Me_autogen/timestamp: \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckFlagCommonConfig.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Internal/FeatureTesting.cmake \
+  E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-Determine-CXX.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-C-ABI.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-C.cmake \
   E:/CLion/CLion\ 2024.1.1/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-CXX-ABI.cmake \
@@ -46,12 +125,12 @@ Dad_n_Me_autogen/timestamp: \
   E:/Dad_n_Me/Model/Common.h \
   E:/Dad_n_Me/Model/Player.cpp \
   E:/Dad_n_Me/Model/Player.h \
-  E:/Dad_n_Me/ModelView/GameWidget.cpp \
-  E:/Dad_n_Me/ModelView/GameWidget.h \
   E:/Dad_n_Me/ModelView/ViewModel.cpp \
   E:/Dad_n_Me/ModelView/ViewModel.h \
   E:/Dad_n_Me/View/Animation.cpp \
   E:/Dad_n_Me/View/Animation.h \
+  E:/Dad_n_Me/View/GameWidget.cpp \
+  E:/Dad_n_Me/View/GameWidget.h \
   E:/Dad_n_Me/View/ResourceManager.cpp \
   E:/Dad_n_Me/View/ResourceManager.h \
   E:/Dad_n_Me/View/View_draw.cpp \

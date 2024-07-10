@@ -1,4 +1,4 @@
-#include "ViewModel.h"
+#include "../ModelView/ViewModel.h"
 
 void GameViewModel::handleKeyPress(int key) {
     switch (key) {
