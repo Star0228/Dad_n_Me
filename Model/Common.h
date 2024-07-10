@@ -22,16 +22,21 @@
 
 #include "../View/Animation.h"
 
+#include <QPainter>
+#include <utility> // for std::exchange
 
 class Common {
 private:
     const float SPEED = 2;
+    float speed = SPEED; // 当前速度，可以为正或负
     Point position{};
 
     bool isHit = false;
 
     int hit_timer = 0;
     bool FacingRight = true;
+
+    bool isReversed = false; // 速度是否反向
 
 public:
     Common(float startX = 20, float startY = 200)
@@ -49,13 +54,16 @@ public:
             isHit = other.isHit;
             hit_timer = other.hit_timer;
             isHit = other.isHit;
+            isReversed = other.isReversed;
+            speed = other.speed;
         }
         return *this;
     }
 
     void move() {
-        position.x += SPEED;
+        position.x += speed;
     }
+
 
     Point getPosition() const {
         return position;
@@ -81,8 +89,15 @@ public:
         hit_timer += adder;
     }
 
-    void ResetTimer(){
+    void ResetTimer() {
         hit_timer = 0;
+    }
+    void checkCollision(const QRect& obstacle) {
+        QRect playerRect(position.x, position.y, 10, 20);
+        if (playerRect.intersects(obstacle)) {
+            speed = -speed; // 反转速度
+            //isReversed = !isReversed; // 更新反向状态
+        }
     }
 };
 

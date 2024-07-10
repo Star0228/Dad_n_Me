@@ -25,34 +25,31 @@
 #include "../Model/Common.h"
 #include "../Model/Player.h"
 #include "../View/View_draw.h"
+#include "../Model/Background.h"
 
 
 
 class GameWidget : public QWidget {
-Q_OBJECT
-
+    Q_OBJECT
 private:
     View_draw view;
 
-    QImage background;
 
+    // QImage background;
+    Background background;
     //敌人
     std::vector<Common> Commons;
     Boss boss;
-
+    QVector<QRect> obstacles;
     //玩家
     Player player;
 
-    int testLoop = 0;
     int playerSignal = 0;
     QTimer* timer;
 
 
 public:
-    explicit GameWidget(QWidget* parent = nullptr) : QWidget(parent), background("test.png") {
-        if (background.isNull()) {
-            qDebug() << "Failed to load background image!";
-        }
+    explicit GameWidget(QWidget* parent = nullptr) : QWidget(parent){
         timer = new QTimer(this);
 
         /*view space
@@ -64,6 +61,7 @@ public:
         timer->start(1000 / 144);
         player = Player(640, 360,  12); // 初始化玩家位置和速度
         boss = Boss();
+        background.addObstacles(obstacles); // 添加障碍物
         //common build
         setFocusPolicy(Qt::StrongFocus); // 设置焦点策略以接收键盘事件
     }
@@ -75,7 +73,7 @@ public:
 protected:
     void paintEvent(QPaintEvent* event) override { //虚函数重写
         QPainter painter(this);
-        painter.drawImage(0, 0, background);
+        background.draw(&painter, rect());
 
         for (Common& common : Commons) {
             view.draw(common,painter, 1000 / 288, playerSignal);
@@ -90,16 +88,16 @@ protected:
         switch (event->key())
         {
             case Qt::Key_Left:
-                player.moveLeft();
+                player.moveLeft(obstacles);
                 break;
             case Qt::Key_Right:
-                player.moveRight();
+                player.moveRight(obstacles);
                 break;
             case Qt::Key_Up:
-                player.moveUp();
+                player.moveUp(obstacles);
                 break;
             case Qt::Key_Down:
-                player.moveDown();
+                player.moveDown(obstacles);
                 break;
             case Qt::Key_S:
                 view.Reset_idx_pl_atk();
@@ -119,16 +117,6 @@ private slots:
             }
         }
 
-//        testLoop++;
-//
-//        if (testLoop % 500 == 0) {
-//            playerSignal = 80;
-//        } else {
-//            if (playerSignal > 0) {
-//                playerSignal--;
-//            }
-//        }
-
 
         for (auto it = Commons.begin(); it != Commons.end();) {
             if (it->GetIsHit() && view.Get_Idx_Common_Hit() == view.Get_anim_Common_hit()->GetFrameCount() - 1) {
@@ -137,7 +125,6 @@ private slots:
                 ++it;
             }
         }
-
 
         // 移动所有未处于 hit 动画的 Common 对象
         for (Common& small : Commons) {
@@ -148,8 +135,8 @@ private slots:
 
         boss.checkHurt(player);
         boss.move(player);
-
         update();
     }
+
 };
 #endif //DAD_N_ME_GAMEWIDGET_H
