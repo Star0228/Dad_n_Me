@@ -18,10 +18,9 @@ add_executable(Dad_n_Me main.cpp
         Model/Player.cpp
         Model/Common.cpp
         Model/Boss.cpp
-        ModelView/GameWidget.cpp
+        ModelView/GameViewModel.cpp
         View/Animation.cpp
         View/ResourceManager.cpp
-        View/View_draw.cpp
         Model/Background.cpp)
 target_link_libraries(Dad_n_Me
         Qt::Core

@@ -248,12 +248,6 @@
 			"MU",
 			"WB4RFHLAU6/moc_ResourceManager.cpp",
 			null
-		],
-		[
-			"E:/Dad_n_Me/View/View_draw.h",
-			"MU",
-			"WB4RFHLAU6/moc_View_draw.cpp",
-			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
@@ -331,7 +325,6 @@
 		[ "E:/Dad_n_Me/ModelView/GameWidget.cpp", "MU", null ],
 		[ "E:/Dad_n_Me/View/Animation.cpp", "MU", null ],
 		[ "E:/Dad_n_Me/View/ResourceManager.cpp", "MU", null ],
-		[ "E:/Dad_n_Me/View/View_draw.cpp", "MU", null ],
 		[ "E:/Dad_n_Me/main.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],

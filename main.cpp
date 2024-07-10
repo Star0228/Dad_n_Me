@@ -1,11 +1,10 @@
-
 #include <QApplication>
-#include "ModelView/GameWidget.h"
+#include "ModelView/GameViewModel.h"
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
 
-    GameWidget gameWidget;
+    GameViewModel gameWidget;
     gameWidget.resize(1280, 720);
     gameWidget.show();
 

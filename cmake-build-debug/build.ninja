@@ -113,14 +113,6 @@ build CMakeFiles/Dad_n_Me.dir/View/ResourceManager.cpp.obj: CXX_COMPILER__Dad_n_
   OBJECT_DIR = CMakeFiles\Dad_n_Me.dir
   OBJECT_FILE_DIR = CMakeFiles\Dad_n_Me.dir\View
 
-build CMakeFiles/Dad_n_Me.dir/View/View_draw.cpp.obj: CXX_COMPILER__Dad_n_Me_unscanned_Debug E$:/Dad_n_Me/View/View_draw.cpp || cmake_object_order_depends_target_Dad_n_Me
-  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
-  DEP_FILE = CMakeFiles\Dad_n_Me.dir\View\View_draw.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -isystem E:/Dad_n_Me/cmake-build-debug/Dad_n_Me_autogen/include -isystem E:/Qt/6.6.3/mingw_64/include/QtCore -isystem E:/Qt/6.6.3/mingw_64/include -isystem E:/Qt/6.6.3/mingw_64/mkspecs/win32-g++ -isystem E:/Qt/6.6.3/mingw_64/include/QtGui -isystem E:/Qt/6.6.3/mingw_64/include/QtWidgets
-  OBJECT_DIR = CMakeFiles\Dad_n_Me.dir
-  OBJECT_FILE_DIR = CMakeFiles\Dad_n_Me.dir\View
-
 build CMakeFiles/Dad_n_Me.dir/Model/Background.cpp.obj: CXX_COMPILER__Dad_n_Me_unscanned_Debug E$:/Dad_n_Me/Model/Background.cpp || cmake_object_order_depends_target_Dad_n_Me
   DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
   DEP_FILE = CMakeFiles\Dad_n_Me.dir\Model\Background.cpp.obj.d
@@ -137,7 +129,7 @@ build CMakeFiles/Dad_n_Me.dir/Model/Background.cpp.obj: CXX_COMPILER__Dad_n_Me_u
 #############################################
 # Link the executable Dad_n_Me.exe
 
-build Dad_n_Me.exe: CXX_EXECUTABLE_LINKER__Dad_n_Me_Debug CMakeFiles/Dad_n_Me.dir/Dad_n_Me_autogen/mocs_compilation.cpp.obj CMakeFiles/Dad_n_Me.dir/main.cpp.obj CMakeFiles/Dad_n_Me.dir/Model/Player.cpp.obj CMakeFiles/Dad_n_Me.dir/Model/Common.cpp.obj CMakeFiles/Dad_n_Me.dir/Model/Boss.cpp.obj CMakeFiles/Dad_n_Me.dir/ModelView/GameWidget.cpp.obj CMakeFiles/Dad_n_Me.dir/View/Animation.cpp.obj CMakeFiles/Dad_n_Me.dir/View/ResourceManager.cpp.obj CMakeFiles/Dad_n_Me.dir/View/View_draw.cpp.obj CMakeFiles/Dad_n_Me.dir/Model/Background.cpp.obj | E$:/Qt/6.6.3/mingw_64/lib/libQt6Widgets.a E$:/Qt/6.6.3/mingw_64/lib/libQt6Gui.a E$:/Qt/6.6.3/mingw_64/lib/libQt6Core.a || Dad_n_Me_autogen Dad_n_Me_autogen_timestamp_deps
+build Dad_n_Me.exe: CXX_EXECUTABLE_LINKER__Dad_n_Me_Debug CMakeFiles/Dad_n_Me.dir/Dad_n_Me_autogen/mocs_compilation.cpp.obj CMakeFiles/Dad_n_Me.dir/main.cpp.obj CMakeFiles/Dad_n_Me.dir/Model/Player.cpp.obj CMakeFiles/Dad_n_Me.dir/Model/Common.cpp.obj CMakeFiles/Dad_n_Me.dir/Model/Boss.cpp.obj CMakeFiles/Dad_n_Me.dir/ModelView/GameWidget.cpp.obj CMakeFiles/Dad_n_Me.dir/View/Animation.cpp.obj CMakeFiles/Dad_n_Me.dir/View/ResourceManager.cpp.obj CMakeFiles/Dad_n_Me.dir/Model/Background.cpp.obj | E$:/Qt/6.6.3/mingw_64/lib/libQt6Widgets.a E$:/Qt/6.6.3/mingw_64/lib/libQt6Gui.a E$:/Qt/6.6.3/mingw_64/lib/libQt6Core.a || Dad_n_Me_autogen Dad_n_Me_autogen_timestamp_deps
   FLAGS = -g
   LINK_LIBRARIES = E:/Qt/6.6.3/mingw_64/lib/libQt6Widgets.a  E:/Qt/6.6.3/mingw_64/lib/libQt6Gui.a  E:/Qt/6.6.3/mingw_64/lib/libQt6Core.a  -lmpr  -luserenv  -ld3d11  -ldxgi  -ldxguid  -ld3d12  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Dad_n_Me.dir
