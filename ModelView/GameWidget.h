@@ -37,7 +37,7 @@ private:
     QImage background;
 
     //敌人
-    std::vector<Common> smallObjects;
+    std::vector<Common> Commons;
     Boss boss;
 
     //玩家
@@ -48,18 +48,23 @@ private:
     QTimer* timer;
 
 
-
 public:
     explicit GameWidget(QWidget* parent = nullptr) : QWidget(parent), background("test.png") {
         if (background.isNull()) {
             qDebug() << "Failed to load background image!";
         }
         timer = new QTimer(this);
-        view = View_draw();
+
+        /*view space
+        */
+         view = View_draw();
+        /*view space
+        */
         connect(timer, &QTimer::timeout, this, &GameWidget::updateGame);
         timer->start(1000 / 144);
         player = Player(640, 360,  12); // 初始化玩家位置和速度
         boss = Boss();
+        //common build
         setFocusPolicy(Qt::StrongFocus); // 设置焦点策略以接收键盘事件
     }
 
@@ -72,13 +77,13 @@ protected:
         QPainter painter(this);
         painter.drawImage(0, 0, background);
 
-        for (Common& common : smallObjects) {
-            view.draw(common,painter, 1000 / 144, playerSignal);
+        for (Common& common : Commons) {
+            view.draw(common,painter, 1000 / 288, playerSignal);
         }
 
-        view.draw(player,painter, 1000 /144);
+        view.draw(player,painter, 1000 /288);
 
-        view.draw(boss,player,painter, 1000 / 144); // 绘制玩家
+        view.draw(boss,player,painter, 1000 / 288); // 绘制玩家
     }
 
     void keyPressEvent(QKeyEvent* event) override {
@@ -106,28 +111,28 @@ protected:
 private slots:
     void updateGame() {
         //管理小怪的生成
-//        if (std::rand() % 100 < 2) { // 按概率生成小怪
-//            int startY = std::rand() % 720; // 随机生成 Y 坐标
-//            if (startY >= 200 && startY <= 600)
-//            {
-//                smallObjects.emplace_back(0, startY);
-//            }
-//        }
-
-        testLoop++;
-
-        if (testLoop % 500 == 0) {
-            playerSignal = 80;
-        } else {
-            if (playerSignal > 0) {
-                playerSignal--;
+        if (std::rand() % 100 < 2) { // 按概率生成小怪
+            int startY = std::rand() % 720; // 随机生成 Y 坐标
+            if (startY >= 200 && startY <= 600)
+            {
+                Commons.emplace_back(0, startY);
             }
         }
 
+//        testLoop++;
+//
+//        if (testLoop % 500 == 0) {
+//            playerSignal = 80;
+//        } else {
+//            if (playerSignal > 0) {
+//                playerSignal--;
+//            }
+//        }
 
-        for (auto it = smallObjects.begin(); it != smallObjects.end();) {
+
+        for (auto it = Commons.begin(); it != Commons.end();) {
             if (it->GetIsHit() && view.Get_Idx_Common_Hit() == view.Get_anim_Common_hit()->GetFrameCount() - 1) {
-                it = smallObjects.erase(it); // 使用 erase 删除元素，并更新迭代器
+                it = Commons.erase(it); // 使用 erase 删除元素，并更新迭代器
             } else {
                 ++it;
             }
@@ -135,7 +140,7 @@ private slots:
 
 
         // 移动所有未处于 hit 动画的 Common 对象
-        for (Common& small : smallObjects) {
+        for (Common& small : Commons) {
             if (playerSignal == 0) {
                 small.move();
             }

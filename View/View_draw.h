@@ -9,7 +9,6 @@
 #include "../Model/Common.h"
 #include "../Model/Boss.h"
 
-const int SMALL_AY_NUM = 8;
 const int IMG_INTERVAL = 30;
 
 
@@ -52,9 +51,13 @@ public:
         anim_Player_attack = new Animation("../resource/Player/attack/%1.png",22, IMG_INTERVAL);
 
     }
+    //player
     void draw(Player& player,QPainter& painter, int delta);
+    //common
     void draw(Common& common,QPainter& painter, int delta,int playerSignal);
+    //boss
     void draw(Boss& boss,Player& player,QPainter& painter, int delta);
+
 //    void draw(const Background bg,QPainter& painter, int delta);
 
 };

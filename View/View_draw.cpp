@@ -20,7 +20,7 @@ void View_draw::draw(Player& player,QPainter& painter, int delta){
 //        Idx_Player_attack = 0;
 //    }
     player.AddTimer(delta);
-    if (Idx_Player_attack == 20)
+    if (Idx_Player_attack == 20 )
     {
         player.Change_Isattack(false);
         Idx_Player_attack = 0;
@@ -46,25 +46,26 @@ void View_draw::draw(Player& player,QPainter& painter, int delta){
                                  Idx_Player_run, player.GetFacingRight());
     }
 }
-void View_draw::draw(Common& common,QPainter& painter, int delta,int playerSignal = 1){
+
+void View_draw::draw(Common& common,QPainter& painter, int delta,int playerSignal = 0){
     common.AddTimer(delta);
-    if (playerSignal > 0)
-    {
-        common.Change_IsHit(true);
-    }
+//    if (playerSignal > 0)
+//    {
+//        common.Change_IsHit(true);
+//    }
     if (common.GetIsHit()) {
         if (common.GetTimer()>= anim_Common_hit->GetInterval()) {
             Idx_Common_Hit = (Idx_Common_Hit + 1) % anim_Common_hit->GetFrameCount();
             common.ResetTimer();
         }
-        anim_Common_hit->Display(painter, common.getPosition().x, common.getPosition().y - 100, common.GetTimer(),
+        anim_Common_hit->Display(painter, common.getPosition().x, common.getPosition().y - 100,
                                  Idx_Common_Hit);
     } else {
         if (common.GetTimer() >= anim_Common_run->GetInterval()) {
             Idx_Common_Run = (Idx_Common_Run + 1) % anim_Common_run->GetFrameCount();
             common.ResetTimer();
         }
-        anim_Common_run->Display(painter, common.getPosition().x, common.getPosition().y, common.GetTimer(),
+        anim_Common_run->Display(painter, common.getPosition().x, common.getPosition().y,
                                  Idx_Common_Run);
     }
 }

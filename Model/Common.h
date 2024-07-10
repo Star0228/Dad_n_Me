@@ -34,7 +34,7 @@ private:
     bool FacingRight = true;
 
 public:
-    Common(float startX, float startY)
+    Common(float startX = 20, float startY = 200)
             : position{startX, startY} {}
 
     // 移动构造函数
