@@ -18,8 +18,8 @@ public:
     bool obstaclePlaced;    // 是否已经放置障碍物
 
 public:
-    Background(const QColor& color = Qt::gray) : backgroundColor(color), obstaclePlaced(false) {
-            obstacleImage = ResourceManager::getInstance().getImage("E:\\Dad_n_Me\\resource\\background\\house_brown.png");
+    Background(const QColor& color = Qt::white) : backgroundColor(color), obstaclePlaced(true) {
+            obstacleImage = ResourceManager::getInstance().getImage("../resource/background/house_brown.png");
     }
 
     // void setObstacleImage(const QString& imagePath) {
@@ -36,10 +36,14 @@ public:
             std::cout << "fuck you!" << std::endl;
             // qreal obstacleX = QRandomGenerator::global()->bounded(rect.width() - obstacleImage.width());
             // qreal obstacleY = QRandomGenerator::global()->bounded(rect.height() - obstacleImage.height());
-            int obstacleY = 50, obstacleX = 100;
-            painter->drawImage(obstacleX, obstacleY, obstacleImage);
             obstaclePlaced = true; // 标记已放置障碍物
         }
+        int obstacleY = 50, obstacleX = 100;
+        painter->drawImage(obstacleX, obstacleY, obstacleImage);
+    }
+    void addObstacles(QVector<QRect>& obstacles){
+        obstacles.append(QRect(50, 100, 50, 50));
+        obstacles.append(QRect(400, 400, 50, 50));
     }
 };
 
