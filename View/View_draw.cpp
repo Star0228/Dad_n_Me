@@ -46,10 +46,6 @@ void View_draw::draw(Player& player,QPainter& painter, int delta){
 
 void View_draw::draw(Common& common,QPainter& painter, int delta,int playerSignal = 0){
     common.AddTimer(delta);
-//    if (playerSignal > 0)
-//    {
-//        common.Change_IsHit(true);
-//    }
     if (common.GetIsHit()) {
         if (common.GetTimer()>= anim_Common_hit->GetInterval()) {
             Idx_Common_Hit = (Idx_Common_Hit + 1) % anim_Common_hit->GetFrameCount();
