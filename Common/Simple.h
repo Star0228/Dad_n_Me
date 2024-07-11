@@ -2,8 +2,8 @@
 // Created by 16579 on 2024/7/9.
 //
 
-#ifndef DAD_N_ME_COMMON_H
-#define DAD_N_ME_COMMON_H
+#ifndef DAD_N_ME_SIMPLE_H
+#define DAD_N_ME_SIMPLE_H
 
 #include <QWidget>
 #include <QApplication>
@@ -19,17 +19,17 @@
 #include <cstdlib>
 #include <iostream>
 #include <QKeyEvent>
-
-#include "../View/Animation.h"
-
 #include <QPainter>
 #include <utility> // for std::exchange
 
-class Common {
+
+#include "Common.h"
+
+class Simple {
 private:
     const float SPEED = 2;
     float speed = SPEED; // 当前速度，可以为正或负
-    Point position{};
+    Point position;
 
     bool isHit = false;
 
@@ -39,16 +39,16 @@ private:
     bool isReversed = false; // 速度是否反向
 
 public:
-    Common(float startX = 20, float startY = 200)
+    Simple(float startX = 20, float startY = 200)
             : position{startX, startY} {}
 
     // 移动构造函数
-    Common(Common&& other) noexcept{
+    Simple(Simple&& other) noexcept{
         *this = std::move(other);
     }
 
     // 移动赋值运算符
-    Common& operator=(Common&& other) noexcept {
+    Simple& operator=(Simple&& other) noexcept {
         if (this != &other) {
             position = other.position;
             isHit = other.isHit;
@@ -102,4 +102,4 @@ public:
 };
 
 
-#endif //DAD_N_ME_COMMON_H
+#endif //DAD_N_ME_SIMPLE_H

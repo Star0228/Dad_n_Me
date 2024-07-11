@@ -20,9 +20,9 @@
 #include <iostream>
 #include <QKeyEvent>
 
-#include "../View/Animation.h"
 #include "Player.h"
 
+#include "Common.h"
 
 class Boss
 {
