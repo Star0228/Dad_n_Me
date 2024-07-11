@@ -6,7 +6,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(CMAKE_PREFIX_PATH "D:/Qt/6.5.3/mingw_64")
+set(CMAKE_PREFIX_PATH "E:/Qt/6.6.3/mingw_64")
 
 find_package(Qt6 COMPONENTS
         Core
@@ -15,18 +15,15 @@ find_package(Qt6 COMPONENTS
         REQUIRED)
 
 add_executable(Dad_n_Me main.cpp
-        Common/Player.cpp
-        Common/Simple.cpp
-        Common/Boss.cpp
-        ViewModel/GameWidget.cpp
-        ViewModel/ViewModel.cpp
+        Model/Player.cpp
+        Model/Common.cpp
+        Model/Boss.cpp
+        View/GameWidget.cpp
+        ModelView/ViewModel.cpp
         View/Animation.cpp
         View/ResourceManager.cpp
         View/View_draw.cpp
-        Common/Background.cpp
-        Common/Common.cpp
-        Common/Common.h
-)
+        Model/Background.cpp)
 target_link_libraries(Dad_n_Me
         Qt::Core
         Qt::Gui

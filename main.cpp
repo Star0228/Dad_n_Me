@@ -1,27 +1,27 @@
 
 #include <QApplication>
-#include "Common/Player.h"
-#include "Common/Simple.h"
-#include "Common/Boss.h"
-#include "ViewModel/GameWidget.h"
-#include "ViewModel/ViewModel.h"
+#include "View/GameWidget.h"
+#include "ModelView/ViewModel.h"
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
 
-    Background bg;
-    std::vector<Simple> simples;
-    Boss boss;
-    QVector<QRect> obstacles;
-    Player player(640, 360, 12);
+
+
     int playerSignal = 0;
     View_draw view;
     /*ViewModel*/
-    GameViewModel viewModel = GameViewModel(nullptr, &player, &boss, &bg, &obstacles, &simples);
+    GameViewModel viewModel = GameViewModel(nullptr);
     /*View*/
-    GameWidget gameWidget(nullptr, &bg, &simples, &boss, &obstacles, &player, &playerSignal, &view, &viewModel);
+    GameWidget gameWidget(nullptr,viewModel.getBackground(), viewModel.getSmallEnemies(), viewModel.getBoss(), viewModel.getObstacles(), viewModel.getPlayer(),  &playerSignal, &view);
     gameWidget.resize(1280, 720);
     gameWidget.show();
+
+    // Connect view signals to ViewModel slots
+    QObject::connect(&gameWidget, &GameWidget::keyPressed, &viewModel, &GameViewModel::handleKeyPress);
+    //QObject::connect(&gameWidget, &GameWidget::keyReleased, &viewModel, &GameViewModel::handleKeyRelease);
+    //QObject::connect(&viewModel, &GameViewModel::gameUpdated, &view, &View_draw::update);
+
 
     return app.exec();
 }

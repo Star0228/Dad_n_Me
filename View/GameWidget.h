@@ -17,7 +17,11 @@
 #include "../Common/Player.h"
 #include "../Common/Background.h"
 #include "../View/View_draw.h"
+<<<<<<<< HEAD:ViewModel/GameWidget.h
 #include "ViewModel.h"
+========
+#include "../Model/Background.h"
+>>>>>>>> 98669a8e896c860d20a9c573a4a189788fe33664:View/GameWidget.h
 
 class GameWidget : public QWidget {
     Q_OBJECT
@@ -30,7 +34,6 @@ private:
     Player* player;
     int* playerSignal;
     QTimer* timer;
-    GameViewModel* viewModel;
 
 public:
     explicit GameWidget(QWidget* parent = nullptr,
@@ -40,18 +43,18 @@ public:
                         QVector<QRect>* obs = nullptr,
                         Player* p = nullptr,
                         int* pSignal = nullptr,
+<<<<<<<< HEAD:ViewModel/GameWidget.h
                         View_draw* v = nullptr,
                         GameViewModel* vm = nullptr)
         : QWidget(parent), background(bg), Simples(Simples), boss(b), obstacles(obs), player(p), playerSignal(pSignal), view(v), viewModel(vm) {
+========
+                        View_draw* v = nullptr)
+        : QWidget(parent), background(bg), Commons(commons), boss(b), obstacles(obs), player(p), playerSignal(pSignal), view(v) {
+>>>>>>>> 98669a8e896c860d20a9c573a4a189788fe33664:View/GameWidget.h
         timer = new QTimer(this);
 
         connect(timer, &QTimer::timeout, this, &GameWidget::updateGame);
         timer->start(1000 / 144);
-
-        if (background && obstacles) {
-            background->addObstacles(*obstacles); // 添加障碍物
-        }
-
         setFocusPolicy(Qt::StrongFocus); // 设置焦点策略以接收键盘事件
     }
 
@@ -59,6 +62,9 @@ public:
         delete timer;
         delete view;
     }
+signals:
+    void keyPressed(int key);
+    void keyReleased(int key);
 
 protected:
     void paintEvent(QPaintEvent* event) override {
@@ -83,7 +89,7 @@ protected:
     }
 
     void keyPressEvent(QKeyEvent* event) override {
-        viewModel->handleKeyPress(event->key());
+        emit keyPressed(event->key());
     }
 
 private slots:
