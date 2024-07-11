@@ -1,7 +1,25 @@
-#include "ViewModel.h"
-
+#include "../ModelView/ViewModel.h"
+#include <iostream>
 void GameViewModel::handleKeyPress(int key) {
+    //std::cout << obstacles.size() << std::endl;
+    switch (key) {
 
+        case Qt::Key_Left:
+            player.moveLeft(*obstacles);
+        break;
+        case Qt::Key_Right:
+            player.moveRight(*obstacles);
+        break;
+        case Qt::Key_Up:
+            player.moveUp(*obstacles);
+        break;
+        case Qt::Key_Down:
+            player.moveDown(*obstacles);
+        break;
+        case Qt::Key_S:
+            player.attack();
+        break;
+    }
 }
 
 void GameViewModel::handleKeyRelease(int key) {
@@ -14,17 +32,21 @@ void GameViewModel::updateGame() {
 }
 
 Background* GameViewModel::getBackground() {
-    return background;
+    return &background;
 }
 
 Player* GameViewModel::getPlayer() {
-    return player;
+    return &player;
 }
 
-std::vector<Simple>* GameViewModel::getSmallEnemies() {
-    return smallEnemies;
+std::vector<Common>* GameViewModel::getSmallEnemies() {
+    return &smallEnemies;
 }
 
 Boss* GameViewModel::getBoss() {
-    return boss;
+    return &boss;
+}
+
+QVector<QRect>* GameViewModel::getObstacles() {
+    return obstacles;
 }

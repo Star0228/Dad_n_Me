@@ -15,18 +15,15 @@ find_package(Qt6 COMPONENTS
         REQUIRED)
 
 add_executable(Dad_n_Me main.cpp
-        Common/Player.cpp
-        Common/Simple.cpp
-        Common/Boss.cpp
+        Model/Player.cpp
+        Model/Common.cpp
+        Model/Boss.cpp
         View/GameWidget.cpp
-        ViewModel/ViewModel.cpp
+        ModelView/ViewModel.cpp
         View/Animation.cpp
         View/ResourceManager.cpp
         View/View_draw.cpp
-        Common/Background.cpp
-        Common/Common.cpp
-        Common/Common.h
-)
+        Model/Background.cpp)
 target_link_libraries(Dad_n_Me
         Qt::Core
         Qt::Gui

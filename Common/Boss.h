@@ -1,24 +1,12 @@
-//
-// Created by 16579 on 2024/7/9.
-//
-
 #ifndef DAD_N_ME_BOSS_H
 #define DAD_N_ME_BOSS_H
 
 #include <QWidget>
-#include <QApplication>
-#include <QPainter>
-#include <QTimer>
-#include <QImage>
 #include <QDebug>
-#include <QString>
 #include <cmath>
 #include <vector>
 #include <cmath>
-#include <QHash>
-#include <cstdlib>
 #include <iostream>
-#include <QKeyEvent>
 
 #include "Player.h"
 

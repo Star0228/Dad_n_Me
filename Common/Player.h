@@ -35,13 +35,17 @@ private:
 public:
 
     Player(float startX = 640, float startY = 360,  float speed = 12)
-            : position{startX, startY}, speed(speed), FacingRight(true) {}
+            : position{startX, startY}, speed(speed), FacingRight(true) {
+        rect = QRect(startX, startY, 50, 100);
+    }
 
 
 
     bool checkCollision(const QRect& newRect, const QVector<QRect>& obstacles) {
         for (const QRect& obstacle : obstacles) {
+            std::cout << obstacle.left() << std::endl;
             if (newRect.intersects(obstacle)) {
+                std::cout << "bitch" << std::endl;
                 return true;
             }
         }
@@ -50,10 +54,15 @@ public:
 
     void moveLeft(const QVector<QRect>& obstacles) {
         QRect newRect = rect.translated(-speed, 0);
-        if (checkCollision(newRect, obstacles)) std::cout << "FUCK!" << std::endl;
+        std::cout << "bitch" << std::endl;
+        std::cout << rect.height() << std::endl;
+        // std::cout << rect.left() << std::endl;
+        for (QRect ob : obstacles) std::cout << ob.left() << std::endl;
+        // if (checkCollision(newRect, obstacles)) std::cout << "FUCK!" << std::endl;
         if (!checkCollision(newRect, obstacles)) {
             position.x -= speed;
             rect.moveTo(position.x, position.y);
+            //std::cout << "FUCK!" << std::endl;
         }
         FacingRight = false;
     }
@@ -63,6 +72,7 @@ public:
         if (!checkCollision(newRect, obstacles)) {
             position.x += speed;
             rect.moveTo(position.x, position.y);
+            //std::cout << "FUCK!" << std::endl;
         }
         FacingRight = true;
     }
@@ -72,6 +82,7 @@ public:
         if (!checkCollision(newRect, obstacles)) {
             position.y -= speed;
             rect.moveTo(position.x, position.y);
+            //std::cout << "FUCK!" << std::endl;
         }
     }
 
@@ -80,6 +91,7 @@ public:
         if (!checkCollision(newRect, obstacles)) {
             position.y += speed;
             rect.moveTo(position.x, position.y);
+            //std::cout << "FUCK!" << std::endl;
         }
     }
     void attack() {
