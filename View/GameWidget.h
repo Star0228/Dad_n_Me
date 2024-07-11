@@ -17,7 +17,6 @@
 #include "../Model/Player.h"
 #include "../View/View_draw.h"
 #include "../Model/Background.h"
-#include "../ModelView/ViewModel.h"
 
 class GameWidget : public QWidget {
     Q_OBJECT
@@ -30,7 +29,6 @@ private:
     Player* player;
     int* playerSignal;
     QTimer* timer;
-    GameViewModel* viewModel;
 
 public:
     explicit GameWidget(QWidget* parent = nullptr,
@@ -40,9 +38,8 @@ public:
                         QVector<QRect>* obs = nullptr,
                         Player* p = nullptr,
                         int* pSignal = nullptr,
-                        View_draw* v = nullptr,
-                        GameViewModel* vm = nullptr)
-        : QWidget(parent), background(bg), Commons(commons), boss(b), obstacles(obs), player(p), playerSignal(pSignal), view(v), viewModel(vm) {
+                        View_draw* v = nullptr)
+        : QWidget(parent), background(bg), Commons(commons), boss(b), obstacles(obs), player(p), playerSignal(pSignal), view(v) {
         timer = new QTimer(this);
 
         connect(timer, &QTimer::timeout, this, &GameWidget::updateGame);
@@ -78,7 +75,7 @@ protected:
     }
 
     void keyPressEvent(QKeyEvent* event) override {
-        viewModel->handleKeyPress(event->key());
+        //handleKeyPress(event->key());
     }
 
 private slots:

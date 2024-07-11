@@ -428,7 +428,6 @@ E:/Dad_n_Me/View/GameWidget.h
  mdp:E:/Dad_n_Me/Model/Boss.h
  mdp:E:/Dad_n_Me/Model/Common.h
  mdp:E:/Dad_n_Me/Model/Player.h
- mdp:E:/Dad_n_Me/ModelView/ViewModel.h
  mdp:E:/Dad_n_Me/View/Animation.h
  mdp:E:/Dad_n_Me/View/GameWidget.h
  mdp:E:/Dad_n_Me/View/ResourceManager.h

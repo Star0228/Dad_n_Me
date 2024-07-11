@@ -9,11 +9,17 @@ class GameViewModel : public QObject {
     Q_OBJECT
 
 public:
-    explicit GameViewModel(QObject* parent = nullptr, Player* p = nullptr, Boss* b = nullptr, Background* bg = nullptr, QVector<QRect>* obs = nullptr, std::vector<Common>* co = nullptr)
-        : QObject(parent), player(p), boss(b), background(bg), obstacles(obs), smallEnemies(co) {
+    explicit GameViewModel(QObject* parent = nullptr)
+        : QObject(parent) {
 
-        if (background && obstacles) {
-            background->addObstacles(obstacles); // 添加障碍物
+        std::vector<Common> smallEnemies;
+        Boss boss;
+        QVector<QRect> obstacles;
+        Background background = Background(Qt::blue);
+        Player player(640, 360, 12);
+
+        if (&background && &obstacles) {
+            background.addObstacles(&obstacles); // 添加障碍物
         }
     }
     void handleKeyPress(int key);
@@ -24,16 +30,16 @@ public:
     Player* getPlayer();
     std::vector<Common>* getSmallEnemies();
     Boss* getBoss();
-
+    QVector<QRect>* getObstacles();
     signals:
         void gameUpdated();
 
 private:
-    Background* background;
-    Player* player;
-    std::vector<Common>* smallEnemies;
-    Boss* boss;
-    QVector<QRect>* obstacles; // 指针类型
+    Background background;
+    Player player;
+    std::vector<Common> smallEnemies;
+    Boss boss;
+    QVector<QRect> obstacles; // 指针类型
 };
 
 #endif //VIEWMODEL_H

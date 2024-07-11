@@ -7,17 +7,13 @@ int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
 
 
-    std::vector<Common> commons;
-    Boss boss;
-    QVector<QRect> obstacles;
-    Background bg = Background(Qt::blue);
-    Player player(640, 360, 12);
+
     int playerSignal = 0;
     View_draw view;
     /*ViewModel*/
-    GameViewModel viewModel = GameViewModel(nullptr, &player, &boss, &bg, &obstacles, &commons);
+    GameViewModel viewModel = GameViewModel(nullptr);
     /*View*/
-    GameWidget gameWidget(nullptr, &bg, &commons, &boss, &obstacles, &player, &playerSignal, &view, &viewModel);
+    GameWidget gameWidget(nullptr,viewModel.getBackground(), viewModel.getSmallEnemies(), viewModel.getBoss(), viewModel.getObstacles(), viewModel.getPlayer(),  &playerSignal, &view);
     gameWidget.resize(1280, 720);
     gameWidget.show();
 

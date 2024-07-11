@@ -3,19 +3,19 @@
 void GameViewModel::handleKeyPress(int key) {
     switch (key) {
         case Qt::Key_Left:
-            player->moveLeft(*obstacles);
+            player.moveLeft(obstacles);
         break;
         case Qt::Key_Right:
-            player->moveRight(*obstacles);
+            player.moveRight(obstacles);
         break;
         case Qt::Key_Up:
-            player->moveUp(*obstacles);
+            player.moveUp(obstacles);
         break;
         case Qt::Key_Down:
-            player->moveDown(*obstacles);
+            player.moveDown(obstacles);
         break;
         case Qt::Key_S:
-            player->attack();
+            player.attack();
         break;
     }
 }
@@ -30,17 +30,21 @@ void GameViewModel::updateGame() {
 }
 
 Background* GameViewModel::getBackground() {
-    return background;
+    return &background;
 }
 
 Player* GameViewModel::getPlayer() {
-    return player;
+    return &player;
 }
 
 std::vector<Common>* GameViewModel::getSmallEnemies() {
-    return smallEnemies;
+    return &smallEnemies;
 }
 
 Boss* GameViewModel::getBoss() {
-    return boss;
+    return &boss;
+}
+
+QVector<QRect>* GameViewModel::getObstacles() {
+    return &obstacles;
 }
