@@ -14,17 +14,19 @@ public:
 
         std::vector<Common> smallEnemies;
         Boss boss;
-        QVector<QRect> obstacles;
+        obstacles = new QVector<QRect> ;
         Background background = Background(Qt::blue);
         Player player(640, 360, 12);
 
-        if (&background && &obstacles) {
-            background.addObstacles(&obstacles); // 添加障碍物
+        if (&background && obstacles) {
+            std::cout << "fuck" << std::endl;
+             background.addObstacles(obstacles); // 添加障碍物
         }
+        //std::cout << obstacles->size() << std::endl;
     }
-    void handleKeyPress(int key);
-    void handleKeyRelease(int key);
-    void updateGame();
+    // void handleKeyPress(int key);
+    // void handleKeyRelease(int key);
+    // void updateGame();
 
     Background* getBackground();
     Player* getPlayer();
@@ -34,12 +36,17 @@ public:
     signals:
         void gameUpdated();
 
+public slots:
+    void handleKeyPress(int key);
+    void handleKeyRelease(int key);
+    void updateGame();
+
 private:
     Background background;
     Player player;
     std::vector<Common> smallEnemies;
     Boss boss;
-    QVector<QRect> obstacles; // 指针类型
+    QVector<QRect>* obstacles;
 };
 
 #endif //VIEWMODEL_H

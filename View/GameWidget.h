@@ -51,6 +51,9 @@ public:
         delete timer;
         delete view;
     }
+signals:
+    void keyPressed(int key);
+    void keyReleased(int key);
 
 protected:
     void paintEvent(QPaintEvent* event) override {
@@ -75,7 +78,7 @@ protected:
     }
 
     void keyPressEvent(QKeyEvent* event) override {
-        //handleKeyPress(event->key());
+        emit keyPressed(event->key());
     }
 
 private slots:

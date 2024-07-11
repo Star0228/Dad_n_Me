@@ -54,8 +54,10 @@ public:
 
     void moveLeft(const QVector<QRect>& obstacles) {
         QRect newRect = rect.translated(-speed, 0);
+        std::cout << "bitch" << std::endl;
+        std::cout << rect.height() << std::endl;
         // std::cout << rect.left() << std::endl;
-        // for (QRect ob : obstacles) std::cout << ob.left() << std::endl;
+        for (QRect ob : obstacles) std::cout << ob.left() << std::endl;
         // if (checkCollision(newRect, obstacles)) std::cout << "FUCK!" << std::endl;
         if (!checkCollision(newRect, obstacles)) {
             position.x -= speed;

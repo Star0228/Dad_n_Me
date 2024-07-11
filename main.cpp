@@ -17,6 +17,12 @@ int main(int argc, char* argv[]) {
     gameWidget.resize(1280, 720);
     gameWidget.show();
 
+    // Connect view signals to ViewModel slots
+    QObject::connect(&gameWidget, &GameWidget::keyPressed, &viewModel, &GameViewModel::handleKeyPress);
+    //QObject::connect(&gameWidget, &GameWidget::keyReleased, &viewModel, &GameViewModel::handleKeyRelease);
+    //QObject::connect(&viewModel, &GameViewModel::gameUpdated, &view, &View_draw::update);
+
+
     return app.exec();
 }
 
