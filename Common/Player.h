@@ -20,7 +20,7 @@
 #include <iostream>
 #include <QKeyEvent>
 
-#include "../View/Animation.h"
+#include "Common.h"
 
 
 
