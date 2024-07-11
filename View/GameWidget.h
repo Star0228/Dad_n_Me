@@ -16,8 +16,8 @@
 #include "../Common/Simple.h"
 #include "../Common/Player.h"
 #include "../Common/Background.h"
-#include "../View/View_draw.h"
-#include "ViewModel.h"
+#include "View_draw.h"
+
 class GameWidget : public QWidget {
     Q_OBJECT
 private:
@@ -30,7 +30,6 @@ private:
     Player* player;
     int* playerSignal;
     QTimer* timer;
-    GameViewModel* viewModel;
 
 public:
     explicit GameWidget(QWidget* parent = nullptr,
@@ -41,8 +40,8 @@ public:
                         Player* p = nullptr,
                         int* pSignal = nullptr,
                         View_draw* v = nullptr,
-                        GameViewModel* vm = nullptr)
-        : QWidget(parent), background(bg), Simples(Simples), boss(b), obstacles(obs), player(p), playerSignal(pSignal), view(v), viewModel(vm) {
+                        int* key = nullptr)
+        : QWidget(parent), background(bg), Simples(Simples), boss(b), obstacles(obs), player(p), playerSignal(pSignal),view(v) {
         timer = new QTimer(this);
 
         connect(timer, &QTimer::timeout, this, &GameWidget::updateGame);
@@ -83,8 +82,26 @@ protected:
     }
 
     void keyPressEvent(QKeyEvent* event) override {
-        viewModel->handleKeyPress(event->key());
+        int key = event->key();
+        switch (key) {
+            case Qt::Key_Left:
+                player->moveLeft(*obstacles);
+                break;
+            case Qt::Key_Right:
+                player->moveRight(*obstacles);
+                break;
+            case Qt::Key_Up:
+                player->moveUp(*obstacles);
+                break;
+            case Qt::Key_Down:
+                player->moveDown(*obstacles);
+                break;
+            case Qt::Key_S:
+                player->attack();
+                break;
+        }
     }
+
 
 private slots:
     void updateGame() {

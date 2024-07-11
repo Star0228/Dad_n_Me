@@ -1,23 +1,7 @@
 #include "ViewModel.h"
 
 void GameViewModel::handleKeyPress(int key) {
-    switch (key) {
-        case Qt::Key_Left:
-            player->moveLeft(*obstacles);
-        break;
-        case Qt::Key_Right:
-            player->moveRight(*obstacles);
-        break;
-        case Qt::Key_Up:
-            player->moveUp(*obstacles);
-        break;
-        case Qt::Key_Down:
-            player->moveDown(*obstacles);
-        break;
-        case Qt::Key_S:
-            player->attack();
-        break;
-    }
+
 }
 
 void GameViewModel::handleKeyRelease(int key) {

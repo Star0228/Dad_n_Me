@@ -18,7 +18,7 @@ add_executable(Dad_n_Me main.cpp
         Common/Player.cpp
         Common/Simple.cpp
         Common/Boss.cpp
-        ViewModel/GameWidget.cpp
+        View/GameWidget.cpp
         ViewModel/ViewModel.cpp
         View/Animation.cpp
         View/ResourceManager.cpp
