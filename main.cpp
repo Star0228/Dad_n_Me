@@ -10,7 +10,8 @@ int main(int argc, char* argv[]) {
     /*ViewModel*/
     GameViewModel viewModel = GameViewModel(nullptr);
     /*View*/
-    GameWidget gameWidget(nullptr,viewModel.getBackground(), viewModel.getSmallEnemies(), viewModel.getBoss(), viewModel.getObstacles(), viewModel.getPlayer(),  &playerSignal, &view);
+    GameWidget gameWidget(nullptr,viewModel.getBackground(), viewModel.getSmallEnemies(), viewModel.getBoss(),
+                          viewModel.getObstacles(), viewModel.getPlayer(),  &playerSignal, &view);
     gameWidget.resize(1280, 720);
     gameWidget.show();
 

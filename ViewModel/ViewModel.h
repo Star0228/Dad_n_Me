@@ -12,7 +12,7 @@ public:
     explicit GameViewModel(QObject* parent = nullptr)
         : QObject(parent) {
 
-        std::vector<Simple> smallEnemies;
+        std::map<int,Simple> smallEnemies;
         Boss boss;
         obstacles = new QVector<QRect> ;
         Background background = Background(Qt::blue);
@@ -30,7 +30,7 @@ public:
 
     Background* getBackground();
     Player* getPlayer();
-    std::vector<Simple>* getSmallEnemies();
+    std::map<int,Simple>* getSmallEnemies();
     Boss* getBoss();
     QVector<QRect>* getObstacles();
     signals:
@@ -48,7 +48,7 @@ public:
 private:
     Background background;
     Player player;
-    std::vector<Simple> smallEnemies;
+    std::map<int,Simple> smallEnemies;
     Boss boss;
     QVector<QRect>* obstacles;
 };

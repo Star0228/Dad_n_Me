@@ -22,7 +22,7 @@
 #include <QPainter>
 #include <utility> // for std::exchange
 
-
+#include "Player.h"
 #include "Common.h"
 
 class Simple {
@@ -76,6 +76,18 @@ public:
     void Change_IsHit(bool signal){
         isHit = signal;
     }
+
+    void checkHurt(Player& player) {
+        float dx = position.x - player.getPosition().x;
+        float dy = position.y - player.getPosition().y;
+        float dist = std::sqrt(dx*dx + dy*dy);
+
+        if (player.GetIsAttack() && dist < 175)
+        {
+            isHit = true;
+        }
+    }
+
 
     int GetTimer(){
         return hit_timer;
