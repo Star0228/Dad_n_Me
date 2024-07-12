@@ -5,9 +5,11 @@
 #ifndef DAD_N_ME_VIEW_DRAW_H
 #define DAD_N_ME_VIEW_DRAW_H
 
-#include "../Model/Player.h"
-#include "../Model/Common.h"
-#include "../Model/Boss.h"
+#include "../Common/Player.h"
+#include "../Common/Simple.h"
+#include "../Common/Boss.h"
+
+#include "../Common/Animation.h"
 
 const int IMG_INTERVAL = 30;
 
@@ -35,8 +37,8 @@ private:
 
 public:
     void Reset_idx_pl_atk();
-    int Get_Idx_Common_Hit();
-    Animation* Get_anim_Common_hit();
+    int Get_Idx_Simple_Hit();
+    Animation* Get_anim_Simple_hit();
     View_draw(){
         anim_Common_run = new Animation("../resource/Enemy_common/run/%1.png", 8, IMG_INTERVAL);
         anim_Common_hit = new Animation("../resource/Enemy_common/is_hit/hit_%1.png", 15, IMG_INTERVAL);
@@ -50,11 +52,12 @@ public:
         anim_Player_stand = new Animation("../resource/Player/stand/%1.png",19, IMG_INTERVAL);
         anim_Player_attack = new Animation("../resource/Player/attack/%1.png",22, IMG_INTERVAL);
 
+        //std::cout << anim_Player_run->FrameList[0].height() << "  "  << anim_Player_run->FrameList[0].width() << std::endl;
     }
     //player
     void draw(Player& player,QPainter& painter, int delta);
-    //common
-    void draw(Common& common,QPainter& painter, int delta,int playerSignal);
+    //simple
+    void draw(Simple& simple, QPainter& painter, int delta, int playerSignal);
     //boss
     void draw(Boss& boss,Player& player,QPainter& painter, int delta);
 

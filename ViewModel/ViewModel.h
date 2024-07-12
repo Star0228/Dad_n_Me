@@ -1,9 +1,9 @@
 #ifndef VIEWMODEL_H
 #define VIEWMODEL_H
-#include "../Model/Player.h"
-#include "../Model/Boss.h"
-#include "../Model/Common.h"
-#include "../Model/Background.h"
+#include "../Common//Player.h"
+#include "../Common/Boss.h"
+#include "../Common/Simple.h"
+#include "../Common/Background.h"
 
 class GameViewModel : public QObject {
     Q_OBJECT
@@ -12,7 +12,7 @@ public:
     explicit GameViewModel(QObject* parent = nullptr)
         : QObject(parent) {
 
-        std::vector<Common> smallEnemies;
+        std::vector<Simple> smallEnemies;
         Boss boss;
         obstacles = new QVector<QRect> ;
         Background background = Background(Qt::blue);
@@ -20,7 +20,7 @@ public:
 
         if (&background && obstacles) {
             std::cout << "fuck" << std::endl;
-             background.addObstacles(obstacles); // 添加障碍物
+            background.addObstacles(obstacles); // 添加障碍物
         }
         //std::cout << obstacles->size() << std::endl;
     }
@@ -30,21 +30,25 @@ public:
 
     Background* getBackground();
     Player* getPlayer();
-    std::vector<Common>* getSmallEnemies();
+    std::vector<Simple>* getSmallEnemies();
     Boss* getBoss();
     QVector<QRect>* getObstacles();
     signals:
         void gameUpdated();
 
-public slots:
-    void handleKeyPress(int key);
-    void handleKeyRelease(int key);
-    void updateGame();
+    public slots:
+        void handleKeyLeft();
+        void handleKeyRight();
+        void handleKeyUp();
+        void handleKeyDown();
+        void handleKeyS();
+        void handleKeyRelease(int key);
+        void updateGame();
 
 private:
     Background background;
     Player player;
-    std::vector<Common> smallEnemies;
+    std::vector<Simple> smallEnemies;
     Boss boss;
     QVector<QRect>* obstacles;
 };
