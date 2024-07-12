@@ -9,7 +9,7 @@
 #include "../Common/Simple.h"
 #include "../Common/Boss.h"
 
-#include "Animation.h"
+#include "../Common/Animation.h"
 
 const int IMG_INTERVAL = 30;
 

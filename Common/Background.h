@@ -10,8 +10,9 @@
 #include <QImage>
 #include <QRectF>
 #include <QRandomGenerator>
-#include "../View/ResourceManager.h"
-#include "../View/Animation.h"
+#include "Common.h"
+#include "ResourceManager.h"
+#include "Animation.h"
 class Background {
 public:
     QColor backgroundColor; // 背景颜色

@@ -1,7 +1,7 @@
 
 #include <QApplication>
 #include "View/GameWidget.h"
-#include "ModelView/ViewModel.h"
+#include "ViewModel/ViewModel.h"
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
@@ -17,12 +17,11 @@ int main(int argc, char* argv[]) {
     gameWidget.resize(1280, 720);
     gameWidget.show();
 
-    // Connect view signals to ViewModel slots
-    QObject::connect(&gameWidget, &GameWidget::keyPressed, &viewModel, &GameViewModel::handleKeyPress);
-    //QObject::connect(&gameWidget, &GameWidget::keyReleased, &viewModel, &GameViewModel::handleKeyRelease);
-    //QObject::connect(&viewModel, &GameViewModel::gameUpdated, &view, &View_draw::update);
-
-
+    QObject::connect(&gameWidget, &GameWidget::KeyLeft, &viewModel, &GameViewModel::handleKeyLeft);
+    QObject::connect(&gameWidget, &GameWidget::KeyRight, &viewModel, &GameViewModel::handleKeyRight);
+    QObject::connect(&gameWidget, &GameWidget::KeyUp, &viewModel, &GameViewModel::handleKeyUp);
+    QObject::connect(&gameWidget, &GameWidget::KeyDown, &viewModel, &GameViewModel::handleKeyDown);
+    QObject::connect(&gameWidget, &GameWidget::KeyS, &viewModel, &GameViewModel::handleKeyS);
     return app.exec();
 }
 

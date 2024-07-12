@@ -17,11 +17,9 @@
 #include "../Common/Player.h"
 #include "../Common/Background.h"
 #include "../View/View_draw.h"
-<<<<<<<< HEAD:ViewModel/GameWidget.h
-#include "ViewModel.h"
-========
-#include "../Model/Background.h"
->>>>>>>> 98669a8e896c860d20a9c573a4a189788fe33664:View/GameWidget.h
+
+
+
 
 class GameWidget : public QWidget {
     Q_OBJECT
@@ -43,14 +41,9 @@ public:
                         QVector<QRect>* obs = nullptr,
                         Player* p = nullptr,
                         int* pSignal = nullptr,
-<<<<<<<< HEAD:ViewModel/GameWidget.h
-                        View_draw* v = nullptr,
-                        GameViewModel* vm = nullptr)
-        : QWidget(parent), background(bg), Simples(Simples), boss(b), obstacles(obs), player(p), playerSignal(pSignal), view(v), viewModel(vm) {
-========
                         View_draw* v = nullptr)
-        : QWidget(parent), background(bg), Commons(commons), boss(b), obstacles(obs), player(p), playerSignal(pSignal), view(v) {
->>>>>>>> 98669a8e896c860d20a9c573a4a189788fe33664:View/GameWidget.h
+        : QWidget(parent), background(bg), Simples(Simples), boss(b), obstacles(obs), player(p), playerSignal(pSignal), view(v) {
+
         timer = new QTimer(this);
 
         connect(timer, &QTimer::timeout, this, &GameWidget::updateGame);
@@ -65,7 +58,11 @@ public:
 signals:
     void keyPressed(int key);
     void keyReleased(int key);
-
+    void KeyLeft();
+    void KeyRight();
+    void KeyUp();
+    void KeyDown();
+    void KeyS();
 protected:
     void paintEvent(QPaintEvent* event) override {
         QPainter painter(this);
@@ -89,7 +86,23 @@ protected:
     }
 
     void keyPressEvent(QKeyEvent* event) override {
-        emit keyPressed(event->key());
+        switch (event->key()) {
+            case Qt::Key_Left:
+                emit KeyLeft();
+            break;
+            case Qt::Key_Right:
+                emit KeyRight();
+            break;
+            case Qt::Key_Up:
+                emit KeyUp();
+            break;
+            case Qt::Key_Down:
+                emit KeyDown();
+            break;
+            case Qt::Key_S:
+                emit KeyS();
+            break;
+        }
     }
 
 private slots:
