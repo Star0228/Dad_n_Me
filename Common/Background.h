@@ -1,14 +1,19 @@
 #ifndef DAD_N_ME_BACKGROUND_H
 #define DAD_N_ME_BACKGROUND_H
 
+#include <QScreen>
 #include <QWidget>
 #include <QPainter>
 #include <QImage>
 #include <QRectF>
+#include <QColor>
 #include <QVector>
 #include "Common.h"
 #include "ResourceManager.h"
 #include "Animation.h"
+
+//QColor lightBlue(173, 216, 230); // 使用RGB值定义浅蓝色
+
 
 class Background {
 public:
@@ -23,7 +28,7 @@ public:
     float patience = 1.0;
 
 public:
-    Background(const QColor& color = Qt::white) : backgroundColor(color) {
+    Background(const QColor& color = QColor(173, 216, 230)) : backgroundColor(color) {
         initializeObstacles(); // 初始化障碍物
         initializeBackgrounds();
         healthBarRect = QRectF(25, 25, 200, 20);
@@ -33,8 +38,6 @@ public:
     void draw(QPainter* painter, const QRectF& rect, bool showHealthBar) {
         // 绘制背景颜色
         painter->fillRect(rect, backgroundColor);
-
-
 
         for (const auto& pos : bgPositions) {
             int index = &pos - &bgPositions[0]; // 计算当前位置的索引
@@ -81,11 +84,17 @@ private:
     }
 
     void initializeBackgrounds() {
-        backgroundImages.append(ResourceManager::getInstance().getImage("../resource/background/bush1.png"));
-        bgPositions.push_back(QPoint(400, 400));
 
-        backgroundImages.append(ResourceManager::getInstance().getImage("../resource/background/grand.png"));
-        bgPositions.push_back(QPoint(600, 200));
+        QScreen *screen = QGuiApplication::primaryScreen();
+        QRect screenGeometry = screen->geometry();
+        QImage grandPic = QImage("../resource/background/grand.png");
+        for (int j=1; j<3; j++) {
+            for (int i=0; i*(grandPic.width()-10) < screenGeometry.width(); i++) {
+                backgroundImages.append(ResourceManager::getInstance().getImage("../resource/background/grand.png"));
+                bgPositions.push_back(QPoint(i*(grandPic.width()-10), screenGeometry.height()-j*(grandPic.height()-20)));
+            }
+        }
+
     }
 };
 
