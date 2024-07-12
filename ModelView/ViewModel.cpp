@@ -1,26 +1,4 @@
 #include "../ModelView/ViewModel.h"
-#include <iostream>
-// void GameViewModel::handleKeyLeft(int key) {
-//     //std::cout << obstacles.size() << std::endl;
-//     switch (key) {
-//
-//         case Qt::Key_Left:
-//             player.moveLeft(*obstacles);
-//         break;
-//         case Qt::Key_Right:
-//             player.moveRight(*obstacles);
-//         break;
-//         case Qt::Key_Up:
-//             player.moveUp(*obstacles);
-//         break;
-//         case Qt::Key_Down:
-//             player.moveDown(*obstacles);
-//         break;
-//         case Qt::Key_S:
-//             player.attack();
-//         break;
-//     }
-// }
 
 void GameViewModel::handleKeyLeft() {
     player.moveLeft(*obstacles);
