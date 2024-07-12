@@ -20,7 +20,7 @@ public:
 
         if (&background && obstacles) {
             std::cout << "fuck" << std::endl;
-             background.addObstacles(obstacles); // 添加障碍物
+            background.addObstacles(obstacles); // 添加障碍物
         }
         //std::cout << obstacles->size() << std::endl;
     }
@@ -36,10 +36,14 @@ public:
     signals:
         void gameUpdated();
 
-public slots:
-    void handleKeyPress(int key);
-    void handleKeyRelease(int key);
-    void updateGame();
+    public slots:
+        void handleKeyLeft();
+        void handleKeyRight();
+        void handleKeyUp();
+        void handleKeyDown();
+        void handleKeyS();
+        void handleKeyRelease(int key);
+        void updateGame();
 
 private:
     Background background;

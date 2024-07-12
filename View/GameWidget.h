@@ -54,7 +54,11 @@ public:
 signals:
     void keyPressed(int key);
     void keyReleased(int key);
-
+    void KeyLeft();
+    void KeyRight();
+    void KeyUp();
+    void KeyDown();
+    void KeyS();
 protected:
     void paintEvent(QPaintEvent* event) override {
         QPainter painter(this);
@@ -78,7 +82,23 @@ protected:
     }
 
     void keyPressEvent(QKeyEvent* event) override {
-        emit keyPressed(event->key());
+        switch (event->key()) {
+            case Qt::Key_Left:
+                emit KeyLeft();
+            break;
+            case Qt::Key_Right:
+                emit KeyRight();
+            break;
+            case Qt::Key_Up:
+                emit KeyUp();
+            break;
+            case Qt::Key_Down:
+                emit KeyDown();
+            break;
+            case Qt::Key_S:
+                emit KeyS();
+            break;
+        }
     }
 
 private slots:
