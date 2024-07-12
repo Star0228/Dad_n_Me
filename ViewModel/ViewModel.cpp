@@ -18,7 +18,8 @@ void GameViewModel::handleKeyDown() {
 }
 
 void GameViewModel::handleKeyS() {
-    player.attack();
+    player.attack(background);
+
 }
 
 void GameViewModel::handleKeyRelease(int key) {

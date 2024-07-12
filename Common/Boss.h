@@ -12,6 +12,7 @@
 #include "Player.h"
 
 
+
 class Boss
 {
 private:
@@ -25,6 +26,8 @@ private:
     bool isHit = false;
 
 public:
+    bool isAttacking = false;
+
     Boss(float startx = 1100,float starty =300){
         position.x = startx;
         position.y = starty;
@@ -67,6 +70,10 @@ public:
             position.x -= SPEED * dx / dist;
             position.y -= SPEED * dy / dist;
         }
+    }
+
+    void attack() {
+        isAttacking = true;
     }
 
     void checkHurt(Player& player)
