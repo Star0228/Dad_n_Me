@@ -13,6 +13,7 @@
 #include "Common.h"
 #include "ResourceManager.h"
 #include "Animation.h"
+
 class Background {
 public:
     QColor backgroundColor; // 背景颜色
