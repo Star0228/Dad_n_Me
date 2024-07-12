@@ -59,7 +59,7 @@ Player* GameViewModel::getPlayer() {
     return &player;
 }
 
-std::vector<Simple>* GameViewModel::getSmallEnemies() {
+std::map<int,Simple>* GameViewModel::getSmallEnemies() {
     return &smallEnemies;
 }
 

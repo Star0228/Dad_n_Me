@@ -31,14 +31,16 @@ private:
     int Idx_Boss_Run = 0;
     int Idx_Boss_Hit = 0;
     int Idx_Boss_Attack = 0;
-    int Idx_Common_Run = 0;
-    int Idx_Common_Hit = 0;
+    int Idx_Common_Run[1000] = {0};
+    int Idx_Common_Hit[1000] = {0};
 
 
 public:
     void Reset_idx_pl_atk();
-    int Get_Idx_Simple_Hit();
-    Animation* Get_anim_Simple_hit();
+
+    int* Get_Idx_Common_Hit(); //小怪需要返回数组指针
+
+    Animation* Get_anim_Common_hit();
     View_draw(){
         anim_Common_run = new Animation("../resource/Enemy_common/run/%1.png", 8, IMG_INTERVAL);
         anim_Common_hit = new Animation("../resource/Enemy_common/is_hit/hit_%1.png", 15, IMG_INTERVAL);
@@ -52,12 +54,11 @@ public:
         anim_Player_stand = new Animation("../resource/Player/stand/%1.png",19, IMG_INTERVAL);
         anim_Player_attack = new Animation("../resource/Player/attack/%1.png",22, IMG_INTERVAL);
 
-        //std::cout << anim_Player_run->FrameList[0].height() << "  "  << anim_Player_run->FrameList[0].width() << std::endl;
     }
     //player
     void draw(Player& player,QPainter& painter, int delta);
-    //simple
-    void draw(Simple& simple, QPainter& painter, int delta, int playerSignal);
+    //common
+    void draw(int bondNum, Simple& common, QPainter& painter, int delta,int playerSignal);
     //boss
     void draw(Boss& boss,Player& player,QPainter& painter, int delta);
 
