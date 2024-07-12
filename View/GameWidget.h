@@ -12,18 +12,21 @@
 #include <vector>
 #include <cstdlib>
 
-#include "../Model/Boss.h"
-#include "../Model/Common.h"
-#include "../Model/Player.h"
+#include "../Common/Boss.h"
+#include "../Common/Simple.h"
+#include "../Common/Player.h"
+#include "../Common/Background.h"
 #include "../View/View_draw.h"
-#include "../Model/Background.h"
+
+
+
 
 class GameWidget : public QWidget {
     Q_OBJECT
 private:
     View_draw* view;
     Background* background;
-    std::map<int,Common>* smallEnemies; // 指针类型
+    std::map<int,Simple>* smallEnemies; // 指针类型
     Boss* boss;
     QVector<QRect>* obstacles; // 指针类型
     Player* player;
@@ -33,13 +36,14 @@ private:
 public:
     explicit GameWidget(QWidget* parent = nullptr,
                         Background* bg = nullptr,
-                        std::map<int,Common>* commons = nullptr,
+                        std::map<int,Simple>* commons = nullptr,
                         Boss* b = nullptr,
                         QVector<QRect>* obs = nullptr,
                         Player* p = nullptr,
                         int* pSignal = nullptr,
                         View_draw* v = nullptr)
-        : QWidget(parent), background(bg), smallEnemies(commons), boss(b), obstacles(obs), player(p), playerSignal(pSignal), view(v) {
+        : QWidget(parent), background(bg), smallEnemies(commons), boss(b),
+        obstacles(obs), player(p),playerSignal(pSignal), view(v) {
         timer = new QTimer(this);
 
         connect(timer, &QTimer::timeout, this, &GameWidget::updateGame);
@@ -54,12 +58,16 @@ public:
 signals:
     void keyPressed(int key);
     void keyReleased(int key);
-
+    void KeyLeft();
+    void KeyRight();
+    void KeyUp();
+    void KeyDown();
+    void KeyS();
 protected:
     void paintEvent(QPaintEvent* event) override {
         QPainter painter(this);
         if (background) {
-            background->draw(&painter, rect());
+            background->draw(&painter, rect(), true);
         }
 
         if (smallEnemies) {
@@ -73,12 +81,28 @@ protected:
         }
 
         if (boss && player) {
-            //view->draw(*boss, *player, painter, 1000 / 288);
+            view->draw(*boss, *player, painter, 1000 / 288);
         }
     }
 
     void keyPressEvent(QKeyEvent* event) override {
-        emit keyPressed(event->key());
+        switch (event->key()) {
+            case Qt::Key_Left:
+                emit KeyLeft();
+            break;
+            case Qt::Key_Right:
+                emit KeyRight();
+            break;
+            case Qt::Key_Up:
+                emit KeyUp();
+            break;
+            case Qt::Key_Down:
+                emit KeyDown();
+            break;
+            case Qt::Key_S:
+                emit KeyS();
+            break;
+        }
     }
 
 private slots:
@@ -89,7 +113,7 @@ private slots:
                 int startY = std::rand() % 720; // 随机生成 Y 坐标
                 if (startY >= 400 && startY <= 600) {
                     int newId = smallEnemies->empty() ? 0 : smallEnemies->rbegin()->first+1;
-                    smallEnemies->emplace(newId, Common(0, startY));
+                    smallEnemies->emplace(newId, Simple(0, startY));
                 }
             }
 
@@ -110,7 +134,7 @@ private slots:
 
             // 移动所有未处于 hit 动画的 Common 对象
             for (auto& pair : *smallEnemies) {
-                Common& small = pair.second;
+                Simple& small = pair.second;
                 if (playerSignal && *playerSignal == 0) {
                     small.move();
                 }
@@ -125,10 +149,15 @@ private slots:
 
         //检查小怪是否受到击打
         for (auto& pair : *smallEnemies) {
-            Common& small = pair.second;
+            Simple& small = pair.second;
             small.checkHurt(*player);
         }
 
+        //检查主角是否受击打
+        player->checkHurt(*background, boss->Getposition().x, boss->Getposition().y, boss->isAttacking);
+
+        //回复精力
+        player->refillPatience(*background);
         update(); // 请求重绘
     }
 };

@@ -20,8 +20,8 @@
 #include <iostream>
 #include <QKeyEvent>
 
-#include "../View/Animation.h"
-
+#include "Common.h"
+#include "Background.h"
 
 
 class Player {
@@ -32,37 +32,41 @@ private:
     int hit_timer = 0;
     QRect rect;
     bool isAttacking = false;
+
 public:
+    bool ok2Attack = true;
 
     Player(float startX = 640, float startY = 360,  float speed = 12)
             : position{startX, startY}, speed(speed), FacingRight(true) {
-        rect = QRect(startX, startY, 50, 100);
+        rect = QRect(startX, startY, 121, 130);
     }
 
 
 
     bool checkCollision(const QRect& newRect, const QVector<QRect>& obstacles) {
         for (const QRect& obstacle : obstacles) {
-            std::cout << obstacle.left() << std::endl;
             if (newRect.intersects(obstacle)) {
-                std::cout << "bitch" << std::endl;
                 return true;
             }
         }
         return false;
     }
 
+    void checkHurt(Background& background,float x,float y,bool hit) {
+        float dx = position.x - x;
+        float dy = position.y - y;
+        float dist = std::sqrt(dx*dx + dy*dy);
+        if (dist < 150 && hit) {
+            background.health -= 0.01;
+            //std::cout<<background.health<<std::endl;
+        }
+    }
+
     void moveLeft(const QVector<QRect>& obstacles) {
         QRect newRect = rect.translated(-speed, 0);
-        std::cout << "bitch" << std::endl;
-        std::cout << rect.height() << std::endl;
-        // std::cout << rect.left() << std::endl;
-        for (QRect ob : obstacles) std::cout << ob.left() << std::endl;
-        // if (checkCollision(newRect, obstacles)) std::cout << "FUCK!" << std::endl;
         if (!checkCollision(newRect, obstacles)) {
             position.x -= speed;
             rect.moveTo(position.x, position.y);
-            //std::cout << "FUCK!" << std::endl;
         }
         FacingRight = false;
     }
@@ -72,7 +76,6 @@ public:
         if (!checkCollision(newRect, obstacles)) {
             position.x += speed;
             rect.moveTo(position.x, position.y);
-            //std::cout << "FUCK!" << std::endl;
         }
         FacingRight = true;
     }
@@ -82,7 +85,6 @@ public:
         if (!checkCollision(newRect, obstacles)) {
             position.y -= speed;
             rect.moveTo(position.x, position.y);
-            //std::cout << "FUCK!" << std::endl;
         }
     }
 
@@ -91,12 +93,24 @@ public:
         if (!checkCollision(newRect, obstacles)) {
             position.y += speed;
             rect.moveTo(position.x, position.y);
-            //std::cout << "FUCK!" << std::endl;
         }
     }
-    void attack() {
-        isAttacking = true;
-        hit_timer = 0;
+
+    void attack(Background& background) {
+        if (background.patience >= 0.25)
+        {
+            background.patience -= 0.25;
+            isAttacking = true;
+            hit_timer = 0;
+        }
+    }
+
+    void refillPatience(Background& background)
+    {
+        if (background.patience < 1.0)
+        {
+            background.patience += 0.0005;
+        }
     }
 
 

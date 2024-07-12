@@ -6,9 +6,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-HEAD
 set(CMAKE_PREFIX_PATH "C:/Qt/6.5.3/mingw_64")
-
 
 find_package(Qt6 COMPONENTS
         Core
@@ -16,7 +14,17 @@ find_package(Qt6 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(Dad_n_Me main.cpp)
+add_executable(Dad_n_Me main.cpp
+        Common/Player.cpp
+        Common/Common.cpp
+        Common/Boss.cpp
+        View/GameWidget.cpp
+        ViewModel/ViewModel.cpp
+        Common/Animation.cpp
+        Common/ResourceManager.cpp
+        View/View_draw.cpp
+        Common/Background.cpp
+        Common/Simple.cpp)
 target_link_libraries(Dad_n_Me
         Qt::Core
         Qt::Gui
@@ -51,4 +59,3 @@ if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
                 "$<TARGET_FILE_DIR:${PROJECT_NAME}>")
     endforeach (QT_LIB)
 endif ()
-

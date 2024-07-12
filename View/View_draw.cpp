@@ -45,7 +45,7 @@ void View_draw::draw(Player& player,QPainter& painter, int delta){
 }
 
 //bondNum 表示map中绑定的下标
-void View_draw::draw(int bondNum, Common& common,QPainter& painter, int delta,int playerSignal = 0){
+void View_draw::draw(int bondNum, Simple& common,QPainter& painter, int delta,int playerSignal = 0){
     common.AddTimer(delta);
     if (common.GetIsHit()) {
         if (common.GetTimer()>= anim_Common_hit->GetInterval()) {
@@ -74,6 +74,16 @@ void View_draw::draw(Boss& boss,Player& player,QPainter& painter, int delta){
     {
         boss.Change_IsHit(false);
         Idx_Boss_Hit = 0;
+    }
+
+    if (Idx_Boss_Attack != 5)
+    {
+        boss.isAttacking = false;
+    }
+
+    if (Idx_Boss_Attack == 5 && dist < 120)
+    {
+        boss.attack();
     }
 
     // 首先判断boss是否收到攻击

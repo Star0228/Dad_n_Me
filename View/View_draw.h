@@ -5,9 +5,11 @@
 #ifndef DAD_N_ME_VIEW_DRAW_H
 #define DAD_N_ME_VIEW_DRAW_H
 
-#include "../Model/Player.h"
-#include "../Model/Common.h"
-#include "../Model/Boss.h"
+#include "../Common/Player.h"
+#include "../Common/Simple.h"
+#include "../Common/Boss.h"
+
+#include "../Common/Animation.h"
 
 const int IMG_INTERVAL = 30;
 
@@ -22,7 +24,7 @@ private:
     Animation* anim_Player_walk;
     Animation* anim_Player_run;
     Animation* anim_Player_stand;
-    Animation* anim_Player_hit{};
+    Animation* anim_Player_hit;
     Animation* anim_Player_attack;
     int Idx_Player_attack = 0; // frame id
     int Idx_Player_run = 0;
@@ -56,7 +58,7 @@ public:
     //player
     void draw(Player& player,QPainter& painter, int delta);
     //common
-    void draw(int bondNum, Common& common, QPainter& painter, int delta,int playerSignal);
+    void draw(int bondNum, Simple& common, QPainter& painter, int delta,int playerSignal);
     //boss
     void draw(Boss& boss,Player& player,QPainter& painter, int delta);
 
