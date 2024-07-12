@@ -67,7 +67,7 @@ protected:
     void paintEvent(QPaintEvent* event) override {
         QPainter painter(this);
         if (background) {
-            background->draw(&painter, rect());
+            background->draw(&painter, rect(), true);
         }
 
         if (smallEnemies) {
@@ -153,6 +153,11 @@ private slots:
             small.checkHurt(*player);
         }
 
+        //检查主角是否受击打
+        player->checkHurt(*background, boss->Getposition().x, boss->Getposition().y, boss->isAttacking);
+
+        //回复精力
+        player->refillPatience(*background);
         update(); // 请求重绘
     }
 };

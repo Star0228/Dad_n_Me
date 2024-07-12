@@ -76,6 +76,16 @@ void View_draw::draw(Boss& boss,Player& player,QPainter& painter, int delta){
         Idx_Boss_Hit = 0;
     }
 
+    if (Idx_Boss_Attack != 5)
+    {
+        boss.isAttacking = false;
+    }
+
+    if (Idx_Boss_Attack == 5 && dist < 120)
+    {
+        boss.attack();
+    }
+
     // 首先判断boss是否收到攻击
     boss.AddTimer(delta);
     if (boss.GetIsHit())
