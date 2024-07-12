@@ -20,17 +20,20 @@ public:
     bool obstaclePlaced;    // 是否已经放置障碍物
     std::vector<Point> positions;
 
+
     QRectF healthBarRect;   //血条
     QRectF patienceBarRect;   //精力条
 
     float health = 1.0;
     float patience = 1.0;
+
 public:
     Background(const QColor& color = Qt::white) : backgroundColor(color), obstaclePlaced(true){
         obstacleImages.append(ResourceManager::getInstance().getImage("../resource/background/house_brown.png"));
         positions.push_back({50, 50});
         obstacleImages.append(ResourceManager::getInstance().getImage("../resource/background/bush1.png"));
         positions.push_back({400,400});
+
 
         healthBarRect = QRectF(25, 25, 200, 20);
         patienceBarRect = QRectF(25, 60, 200, 20);
@@ -41,7 +44,10 @@ public:
         // 绘制背景颜色
         painter->fillRect(rect, backgroundColor);
 
-        // 绘制障碍物
+        // 绘制背景颜色
+        painter->fillRect(rect, backgroundColor);
+
+
         for(int i = 0; i < 2 ; i++) {
             painter->drawImage(positions[i].x, positions[i].y, obstacleImages[i]);
         }
@@ -68,6 +74,9 @@ public:
 
         }
     }
+
+
+
 
     void addObstacles(QVector<QRect>* obstacles){
         obstacles->append(QRect(50, 50, obstacleImages[0].width(), obstacleImages[0].height()));

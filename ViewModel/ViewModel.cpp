@@ -40,6 +40,7 @@ void GameViewModel::handleKeyDown() {
 
 void GameViewModel::handleKeyS() {
     player.attack(background);
+
 }
 
 void GameViewModel::handleKeyRelease(int key) {
