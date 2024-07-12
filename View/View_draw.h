@@ -52,6 +52,7 @@ public:
         anim_Player_stand = new Animation("../resource/Player/stand/%1.png",19, IMG_INTERVAL);
         anim_Player_attack = new Animation("../resource/Player/attack/%1.png",22, IMG_INTERVAL);
 
+        //std::cout << anim_Player_run->FrameList[0].height() << "  "  << anim_Player_run->FrameList[0].width() << std::endl;
     }
     //player
     void draw(Player& player,QPainter& painter, int delta);

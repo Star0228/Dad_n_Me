@@ -36,26 +36,13 @@ public:
         // 绘制背景颜色
         painter->fillRect(rect, backgroundColor);
 
-        // // 随机放置障碍物图片
-        // if (!obstaclePlaced) {
-        //     std::cout << "fuck you!" << std::endl;
-        //     // qreal obstacleX = QRandomGenerator::global()->bounded(rect.width() - obstacleImage.width());
-        //     // qreal obstacleY = QRandomGenerator::global()->bounded(rect.height() - obstacleImage.height());
-        //     obstaclePlaced = true; // 标记已放置障碍物
-        // }
-        // int obstacleY = 50, obstacleX = 100;
         for(int i = 0; i < 2 ; i++) {
             painter->drawImage(positions[i].x, positions[i].y, obstacleImages[i]);
         }
 
     }
     void addObstacles(QVector<QRect>* obstacles){
-        // for (QImage& obsImg : obstacleImages) {
-        //
-        // }
-        std::cout << obstacleImages[0].width() << std::endl;
         obstacles->append(QRect(50, 50, obstacleImages[0].width(), obstacleImages[0].height()));
-
         obstacles->append(QRect(400, 400, obstacleImages[1].width(), obstacleImages[1].height()));
     }
 };

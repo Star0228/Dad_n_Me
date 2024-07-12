@@ -5,9 +5,6 @@
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
-
-
-
     int playerSignal = 0;
     View_draw view;
     /*ViewModel*/
