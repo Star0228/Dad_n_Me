@@ -60,69 +60,26 @@ public:
         return *this;
     }
 
-    void move(QVector<QRect> obstacles,int width,int height) {
-        if(position.y >height-70||position.y < 250){
-            speedY = -speedY;
-        }
-        if(position.x <0 ||position.x>width-80){
-            speedX = -speedX;
-        }
-        for(auto it:obstacles){
-            checkCollision(it);
-        }
-
-        position.y +=speedY;
-        position.x += speedX;
-    }
+    void move(QVector<QRect> obstacles,int width,int height) ;
 
 
-    Point getPosition() const {
-        return position;
-    }
+    Point getPosition() const ;
 
-    bool GetIsHit(){
-        return isHit;
-    }
+    bool GetIsHit();
 
-    void Change_IsHit(bool signal){
-        isHit = signal;
-    }
+    void Change_IsHit(bool signal);
 
-    void checkHurt(Player& player) {
-        float dx = position.x - player.getPosition().x;
-        float dy = position.y - player.getPosition().y;
-        float dist = std::sqrt(dx*dx + dy*dy);
-
-        if (player.GetIsAttack() && dist < 175)
-        {
-            isHit = true;
-        }
-    }
+    void checkHurt(Player& player) ;
 
 
-    int GetTimer(){
-        return hit_timer;
-    }
+    int GetTimer();
 
-    bool GetFacingRight(){
-        return FacingRight;
-    }
+    bool GetFacingRight();
 
-    void AddTimer(int adder){
-        hit_timer += adder;
-    }
+    void AddTimer(int adder);
 
-    void ResetTimer() {
-        hit_timer = 0;
-    }
-    void checkCollision(const QRect& obstacle) {
-        QRect playerRect(position.x, position.y, 10, 20);
-        if (playerRect.intersects(obstacle)) {
-            speedX = -speedX;
-            speedY = -speedY;// 反转速度
-            //isReversed = !isReversed; // 更新反向状态
-        }
-    }
+    void ResetTimer() ;
+    void checkCollision(const QRect& obstacle) ;
 };
 
 
