@@ -8,7 +8,7 @@
 #include <cmath>
 #include <iostream>
 
-#include "Animation.h"
+#include "../View/Animation.h"
 #include "Player.h"
 #include "Background.h"
 

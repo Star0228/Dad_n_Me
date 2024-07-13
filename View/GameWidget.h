@@ -70,7 +70,7 @@ protected:
     void paintEvent(QPaintEvent* event) override {
         QPainter painter(this);
         if (background) {
-            background->draw(&painter, rect(),gameState);
+            view->draw(*background,&painter, rect(),gameState);
         }
 
         if (smallEnemies) {
@@ -134,11 +134,6 @@ private slots:
                     it = smallEnemies->erase(it); //使用 erase 删除元素，并更新迭代器
                     view->Get_Idx_Common_Hit()[it->first] = 0; //删除后对应帧归零
                 }
-                else if (it->second.getPosition().x >= 1600) { //此时超出了边框
-                    it = smallEnemies->erase(it); //使用 erase 删除元素，并更新迭代器
-                    view->Get_Idx_Common_Hit()[it->first] = 0; //删除后对应帧归零
-                }
-
                 else {
                     ++it;
                 }
@@ -148,7 +143,11 @@ private slots:
             for (auto& pair : *smallEnemies) {
                 Simple& small = pair.second;
                 if ( playerSignal && *playerSignal == 0) {
-                    small.move(*obstacles);
+                    QScreen *screen = QGuiApplication::primaryScreen();
+                    QRect screenGeometry = screen->geometry();
+                    int width = screenGeometry.width();
+                    int height = screenGeometry.height();
+                    small.move(*obstacles,width,height);
                 }
             }
         }

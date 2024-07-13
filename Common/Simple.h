@@ -60,11 +60,11 @@ public:
         return *this;
     }
 
-    void move(QVector<QRect> obstacles) {
-        if(position.y >720||position.y < 200){
+    void move(QVector<QRect> obstacles,int width,int height) {
+        if(position.y >height-70||position.y < 250){
             speedY = -speedY;
         }
-        if(position.x <0 ||position.x>1480){
+        if(position.x <0 ||position.x>width-80){
             speedX = -speedX;
         }
         for(auto it:obstacles){
