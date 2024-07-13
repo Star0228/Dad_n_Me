@@ -70,7 +70,7 @@ protected:
     void paintEvent(QPaintEvent* event) override {
         QPainter painter(this);
         if (background) {
-            background->draw(&painter, rect(),gameState);
+            view->draw(*background,&painter, rect(),gameState);
         }
 
         if (smallEnemies) {

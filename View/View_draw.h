@@ -9,7 +9,7 @@
 #include "../Common/Simple.h"
 #include "../Common/Boss.h"
 
-#include "../Common/Animation.h"
+#include "Animation.h"
 
 const int IMG_INTERVAL = 30;
 
@@ -26,6 +26,9 @@ private:
     Animation* anim_Player_stand;
     Animation* anim_Player_hit;
     Animation* anim_Player_attack;
+
+    QImage grandPic;
+    QImage obstacles;
     int Idx_Player_attack = 0; // frame id
     int Idx_Player_run = 0;
     int Idx_Player_stand = 0;
@@ -55,6 +58,8 @@ public:
         anim_Player_stand = new Animation("../resource/Player/stand/%1.png",11, IMG_INTERVAL);
         anim_Player_attack = new Animation("../resource/Player/attack/%1.png",22, IMG_INTERVAL);
 
+        grandPic = QImage("../resource/background/grand.png");
+        obstacles = QImage("../resource/background/house_brown.png");
     }
     //player
     void draw(Player& player,QPainter& painter, int delta);
@@ -63,7 +68,7 @@ public:
     //boss
     void draw(Boss& boss,Player& player,Background& background,QPainter& painter, int delta);
 
-//    void draw(const Background bg,QPainter& painter, int delta);
+    void draw(Background& background,QPainter *painter, const QRectF &rect, int gameState);
 
 };
 
