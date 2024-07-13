@@ -33,6 +33,7 @@ private:
     int hit_timer = 0;
     QRect rect;
     bool isAttacking = false;
+    bool isMove = false;
 
 public:
     bool ok2Attack = true;
@@ -42,7 +43,11 @@ public:
         rect = QRect(startX, startY, 121, 130);
     }
 
-
+    void reset(){
+        position.x = 640;
+        position.y = 360;
+        hit_timer = 0;
+    }
 
     bool checkCollision(const QRect& newRect, const QVector<QRect>& obstacles) {
         for (const QRect& obstacle : obstacles) {
@@ -57,9 +62,10 @@ public:
         float dx = position.x - x;
         float dy = position.y - y;
         float dist = std::sqrt(dx*dx + dy*dy);
-        if (dist < 150 && hit) {
-            background.health -= 0.01;
-            //std::cout<<background.health<<std::endl;
+        if (dist < 120 && hit && background.getBossHealth()>0) {
+            background.health_Player -= 0.005;
+            background.patience_Boss -= 0.02;
+            //std::cout<<background.health_Player<<std::endl;
         }
     }
 
@@ -98,9 +104,9 @@ public:
     }
 
     void attack(Background& background) {
-        if (background.patience >= 0.25)
+        if (background.patience_Player >= 0.25)
         {
-            background.patience -= 0.25;
+            background.patience_Player -= 0.25;
             isAttacking = true;
             hit_timer = 0;
         }
@@ -108,9 +114,9 @@ public:
 
     void refillPatience(Background& background)
     {
-        if (background.patience < 1.0)
+        if (background.patience_Player < 1.0)
         {
-            background.patience += 0.0005;
+            background.patience_Player += 0.0005;
         }
     }
 
@@ -120,6 +126,14 @@ public:
     }
     int GetHitTimer()const{
         return hit_timer;
+    }
+
+    bool getIsMove(){
+        return isMove;
+    }
+
+    void setIsMove(bool signal){
+        isMove = signal;
     }
 
     void AddTimer(int adder){

@@ -28,7 +28,8 @@
 class Simple {
 private:
     const float SPEED = 2;
-    float speed = SPEED; // 当前速度，可以为正或负
+    float speedX = SPEED; // 当前速度，可以为正或负
+    float speedY = std::rand()%1?SPEED:-SPEED;
     Point position;
 
     bool isHit = false;
@@ -55,13 +56,23 @@ public:
             hit_timer = other.hit_timer;
             isHit = other.isHit;
             isReversed = other.isReversed;
-            speed = other.speed;
         }
         return *this;
     }
 
-    void move() {
-        position.x += speed;
+    void move(QVector<QRect> obstacles) {
+        if(position.y >720||position.y < 200){
+            speedY = -speedY;
+        }
+        if(position.x <0 ||position.x>1480){
+            speedX = -speedX;
+        }
+        for(auto it:obstacles){
+            checkCollision(it);
+        }
+
+        position.y +=speedY;
+        position.x += speedX;
     }
 
 
@@ -107,7 +118,8 @@ public:
     void checkCollision(const QRect& obstacle) {
         QRect playerRect(position.x, position.y, 10, 20);
         if (playerRect.intersects(obstacle)) {
-            speed = -speed; // 反转速度
+            speedX = -speedX;
+            speedY = -speedY;// 反转速度
             //isReversed = !isReversed; // 更新反向状态
         }
     }

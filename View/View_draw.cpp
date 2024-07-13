@@ -33,7 +33,7 @@ void View_draw::draw(Player& player,QPainter& painter, int delta){
         anim_Player_attack->Display(painter, player.getPosition().x, player.getPosition().y - 70,
                                     Idx_Player_attack, player.GetFacingRight()); // 调整了y方向参数来保证图片显示位置的一致性
     }
-    else
+    else if(player.getIsMove())
     {
         if (player.GetHitTimer() >= anim_Player_run->GetInterval()) {
             Idx_Player_run = (Idx_Player_run + 1) % anim_Player_run->GetFrameCount();
@@ -42,28 +42,36 @@ void View_draw::draw(Player& player,QPainter& painter, int delta){
         anim_Player_run->Display(painter, player.getPosition().x, player.getPosition().y,
                                  Idx_Player_run, player.GetFacingRight());
     }
+    else{
+        if (player.GetHitTimer() >= anim_Player_stand->GetInterval()) {
+            Idx_Player_stand = (Idx_Player_stand+ 1) % anim_Player_stand->GetFrameCount();
+            player.ResetTimer();
+        }
+        anim_Player_stand->Display(painter, player.getPosition().x, player.getPosition().y,
+                                 Idx_Player_stand, player.GetFacingRight());
+    }
 }
 
 //bondNum 表示map中绑定的下标
-void View_draw::draw(int bondNum, Simple& common,QPainter& painter, int delta,int playerSignal = 0){
-    common.AddTimer(delta);
-    if (common.GetIsHit()) {
-        if (common.GetTimer()>= anim_Common_hit->GetInterval()) {
+void View_draw::draw(int bondNum, Simple& simple, QPainter& painter, int delta, int playerSignal = 0){
+    simple.AddTimer(delta);
+    if (simple.GetIsHit()) {
+        if (simple.GetTimer() >= anim_Common_hit->GetInterval()) {
             Idx_Common_Hit[bondNum] = (Idx_Common_Hit[bondNum] + 1) % anim_Common_hit->GetFrameCount();
-            common.ResetTimer();
+            simple.ResetTimer();
         }
-        anim_Common_hit->Display(painter, common.getPosition().x, common.getPosition().y - 100,
+        anim_Common_hit->Display(painter, simple.getPosition().x, simple.getPosition().y - 100,
                                  Idx_Common_Hit[bondNum]);
     } else {
-        if (common.GetTimer() >= anim_Common_run->GetInterval()) {
+        if (simple.GetTimer() >= anim_Common_run->GetInterval()) {
             Idx_Common_Run[bondNum] = (Idx_Common_Run[bondNum] + 1) % anim_Common_run->GetFrameCount();
-            common.ResetTimer();
+            simple.ResetTimer();
         }
-        anim_Common_run->Display(painter, common.getPosition().x, common.getPosition().y,
+        anim_Common_run->Display(painter, simple.getPosition().x, simple.getPosition().y,
                                  Idx_Common_Run[bondNum]);
     }
 }
-void View_draw::draw(Boss& boss,Player& player,QPainter& painter, int delta){
+void View_draw::draw(Boss& boss,Player& player,Background& background,QPainter& painter, int delta){
     // 计算boss和player的距离
     Point position = boss.Getposition();
     float dx = position.x - player.getPosition().x;
@@ -83,13 +91,14 @@ void View_draw::draw(Boss& boss,Player& player,QPainter& painter, int delta){
 
     if (Idx_Boss_Attack == 5 && dist < 120)
     {
-        boss.attack();
+        boss.attack(background);
     }
 
     // 首先判断boss是否收到攻击
     boss.AddTimer(delta);
     if (boss.GetIsHit())
     {
+        boss.isAttacking = false;
         if (boss.GetTimer() >= anim_Boss_hit->GetInterval() - 10) {
             Idx_Boss_Hit = (Idx_Boss_Hit + 1) % anim_Boss_hit->GetFrameCount();
             boss.ResetTimer();
@@ -97,7 +106,7 @@ void View_draw::draw(Boss& boss,Player& player,QPainter& painter, int delta){
         anim_Boss_hit->Display(painter, position.x, position.y - 20,
                                Idx_Boss_Hit, boss.GetFacingRight());
     }
-    else if (dist < 120)
+    else if (dist < 120 )
     {
         if (boss.GetTimer() >= anim_Boss_attack->GetInterval()) {
             Idx_Boss_Attack = (Idx_Boss_Attack + 1) % anim_Boss_attack->GetFrameCount();

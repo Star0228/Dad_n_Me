@@ -19,14 +19,9 @@ public:
         Player player(640, 360, 12);
 
         if (&background && obstacles) {
-            std::cout << "fuck" << std::endl;
             background.addObstacles(obstacles); // 添加障碍物
         }
-        //std::cout << obstacles->size() << std::endl;
     }
-    // void handleKeyPress(int key);
-    // void handleKeyRelease(int key);
-    // void updateGame();
 
     Background* getBackground();
     Player* getPlayer();
@@ -42,8 +37,9 @@ public:
         void handleKeyUp();
         void handleKeyDown();
         void handleKeyS();
-        void handleKeyRelease(int key);
+        void handleKeyRelease();
         void updateGame();
+        void resetGame();
 
 private:
     Background background;

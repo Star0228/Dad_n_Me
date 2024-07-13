@@ -28,6 +28,7 @@ private:
     Animation* anim_Player_attack;
     int Idx_Player_attack = 0; // frame id
     int Idx_Player_run = 0;
+    int Idx_Player_stand = 0;
     int Idx_Boss_Run = 0;
     int Idx_Boss_Hit = 0;
     int Idx_Boss_Attack = 0;
@@ -51,16 +52,16 @@ public:
 
         anim_Player_run = new Animation("../resource/Player/run/%1.png",6, IMG_INTERVAL);
         anim_Player_walk = new Animation("../resource/Player/walk/%1.png",11, IMG_INTERVAL);
-        anim_Player_stand = new Animation("../resource/Player/stand/%1.png",19, IMG_INTERVAL);
+        anim_Player_stand = new Animation("../resource/Player/stand/%1.png",11, IMG_INTERVAL);
         anim_Player_attack = new Animation("../resource/Player/attack/%1.png",22, IMG_INTERVAL);
 
     }
     //player
     void draw(Player& player,QPainter& painter, int delta);
-    //common
-    void draw(int bondNum, Simple& common, QPainter& painter, int delta,int playerSignal);
+    //simple
+    void draw(int bondNum, Simple& simple, QPainter& painter, int delta, int playerSignal);
     //boss
-    void draw(Boss& boss,Player& player,QPainter& painter, int delta);
+    void draw(Boss& boss,Player& player,Background& background,QPainter& painter, int delta);
 
 //    void draw(const Background bg,QPainter& painter, int delta);
 

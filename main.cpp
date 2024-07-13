@@ -15,11 +15,13 @@ int main(int argc, char* argv[]) {
     gameWidget.resize(1280, 720);
     gameWidget.show();
 
+    QObject::connect(&gameWidget, &GameWidget::KeyReleased, &viewModel, &GameViewModel::handleKeyRelease);
     QObject::connect(&gameWidget, &GameWidget::KeyLeft, &viewModel, &GameViewModel::handleKeyLeft);
     QObject::connect(&gameWidget, &GameWidget::KeyRight, &viewModel, &GameViewModel::handleKeyRight);
     QObject::connect(&gameWidget, &GameWidget::KeyUp, &viewModel, &GameViewModel::handleKeyUp);
     QObject::connect(&gameWidget, &GameWidget::KeyDown, &viewModel, &GameViewModel::handleKeyDown);
     QObject::connect(&gameWidget, &GameWidget::KeyS, &viewModel, &GameViewModel::handleKeyS);
+    QObject::connect(&gameWidget, &GameWidget::ResetGame, &viewModel, &GameViewModel::resetGame);
     return app.exec();
 }
 
