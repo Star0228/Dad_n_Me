@@ -10,6 +10,7 @@
 
 #include "Animation.h"
 #include "Player.h"
+#include "Background.h"
 
 
 
@@ -18,9 +19,6 @@ class Boss
 private:
     const int SPEED = 1;
     Point position{};
-
-    int currentBlood = 100;
-
     int hit_timer = 0;
     bool FacingRight = true;
     bool isHit = false;
@@ -36,15 +34,20 @@ public:
     // 实现移动构造函数和移动赋值运算符
     Boss(Boss&& other) noexcept
             : position(other.position),
-              currentBlood(other.currentBlood),
               hit_timer(other.hit_timer)
     {}
+
+    void reset(){
+        position.x = 1100;
+        position.y = 300;
+        hit_timer = 0;
+        isHit = false;
+    }
 
     // Move assignment operator
     Boss& operator=(Boss&& other) noexcept {
         if (this != &other) {
             position = other.position;
-            currentBlood = other.currentBlood;
             hit_timer = other.hit_timer;
             // Additional members to move if needed
         }
@@ -72,11 +75,16 @@ public:
         }
     }
 
-    void attack() {
-        isAttacking = true;
+
+    void attack(Background& background) {
+        if (background.patience_Boss >= 0.25)
+        {
+            isAttacking = true;
+        }
+
     }
 
-    void checkHurt(Player& player)
+    void checkHurt(Player& player,Background& background)
     {
         float dx = position.x - player.getPosition().x;
         float dy = position.y - player.getPosition().y;
@@ -84,8 +92,16 @@ public:
 
         if (player.GetIsAttack() && dist < 300)
         {
-            currentBlood -= 10;
+            background.health_Boss -= 0.001;
             isHit = true;
+        }
+    }
+
+    void refillPatience(Background& background)
+    {
+        if (background.patience_Boss < 1.0)
+        {
+            background.patience_Boss += 0.0005;
         }
     }
 
@@ -95,6 +111,10 @@ public:
 
     bool GetIsHit(){
         return isHit;
+    }
+
+    bool getIsAttack(){
+        return isAttacking;
     }
 
     void Change_IsHit(bool signal){
