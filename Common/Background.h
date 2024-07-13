@@ -38,50 +38,27 @@ public:
         patienceRectBoss = QRectF(1450, 60, 200, 20);
     }
 
-    void reset() {
-        health_Player = 1.0;
-        patience_Player = 1.0;
-        health_Boss = 1.0;
-        patience_Boss = 1.0;
-    }
+    void reset();
 
-    float getPlayerHealth(){
-        return health_Player;
-    }
+    float getPlayerHealth();
 
-    float getBossHealth(){
-        return health_Boss;
-    }
+    float getBossHealth();
 
-    float getPlayerPatience(){
-        return patience_Player;
-    }
+    float getPlayerPatience();
 
-    float getBossPatience(){
-        return patience_Boss;
-    }
+    float getBossPatience();
 
-    QColor getBgcolor(){
-        return backgroundColor;
-    }
+    QColor getBgcolor();
 
-    QRectF getHealthRectPlayer(){
-        return healthRectPlayer;
-    }
-    QRectF getHealthRectBoss(){
-        return healthRectBoss;
-    }
-    QRectF getPatienceRectPlayer(){
-        return patienceRectPlayer;
-    }
-    QRectF getPatienceRectBoss(){
-        return patienceRectBoss;
-    }
+    QRectF getHealthRectPlayer();
 
+    QRectF getHealthRectBoss();
 
-    void addObstacles(QVector<QRect>* obstacles) {
-        obstacles->append(QRect(50,-80, 473,372));
-    }
+    QRectF getPatienceRectPlayer();
+
+    QRectF getPatienceRectBoss();
+
+    void addObstacles(QVector<QRect>* obstacles);
 
 };
 

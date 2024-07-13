@@ -8,7 +8,7 @@
 #include <cmath>
 #include <iostream>
 
-#include "../View/Animation.h"
+
 #include "Player.h"
 #include "Background.h"
 
@@ -37,12 +37,7 @@ public:
               hit_timer(other.hit_timer)
     {}
 
-    void reset(){
-        position.x = 1100;
-        position.y = 300;
-        hit_timer = 0;
-        isHit = false;
-    }
+    void reset();
 
     // Move assignment operator
     Boss& operator=(Boss&& other) noexcept {
@@ -54,92 +49,31 @@ public:
         return *this;
     }
 
-    void move(Player& player)
-    {
-        float dx = position.x - player.getPosition().x;
-        float dy = position.y - player.getPosition().y;
-        float dist = std::sqrt(dx*dx + dy*dy);
-
-        if (dx < 10)
-        {
-            FacingRight = true;
-        }else
-        {
-            FacingRight = false;
-        }
-
-        if (dist > 100)
-        {
-            position.x -= SPEED * dx / dist;
-            position.y -= SPEED * dy / dist;
-        }
-    }
+    void move(Player& player);
 
 
-    void attack(Background& background) {
-        if (background.patience_Boss >= 0.25)
-        {
-            isAttacking = true;
-        }
+    void attack(Background& background);
 
-    }
+    void checkHurt(Player& player,Background& background);
 
-    void checkHurt(Player& player,Background& background)
-    {
-        float dx = position.x - player.getPosition().x;
-        float dy = position.y - player.getPosition().y;
-        float dist = std::sqrt(dx*dx + dy*dy);
+    void refillPatience(Background& background);
 
-        if (player.GetIsAttack() && dist < 300)
-        {
-            background.health_Boss -= 0.001;
-            isHit = true;
-        }
-    }
+    Point Getposition();
 
-    void refillPatience(Background& background)
-    {
-        if (background.patience_Boss < 1.0)
-        {
-            background.patience_Boss += 0.0005;
-        }
-    }
+    bool GetIsHit();
 
-    Point Getposition(){
-        return position;
-    }
+    bool getIsAttack();
 
-    bool GetIsHit(){
-        return isHit;
-    }
+    void Change_IsHit(bool signal);
 
-    bool getIsAttack(){
-        return isAttacking;
-    }
+    int GetTimer();
 
-    void Change_IsHit(bool signal){
-        isHit = signal;
-    }
+    bool GetFacingRight();
 
-    int GetTimer(){
-        return hit_timer;
-    }
+    void AddTimer(int adder);
 
-    bool GetFacingRight(){
-        return FacingRight;
-    }
-
-    void AddTimer(int adder){
-        hit_timer += adder;
-    }
-
-    void ResetTimer(){
-        hit_timer = 0;
-    }
-
+    void ResetTimer();
 };
-
-
 
 
 
