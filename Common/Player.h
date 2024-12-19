@@ -38,7 +38,7 @@ private:
 public:
     bool ok2Attack = true;
 
-    Player(float startX = 640, float startY = 360,  float speed = 12)
+    Player(float startX = 640, float startY = 360,  float speed = 2)
             : position{startX, startY}, speed(speed), FacingRight(true) {
         rect = QRect(startX, startY, 121, 130);
     }

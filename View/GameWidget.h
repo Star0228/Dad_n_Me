@@ -35,6 +35,11 @@ private:
     int* playerSignal;
     QTimer* timer;
     int gameState = 0;//0 represents normal, 1 represent win , 2 represents lose
+    //长按按键Flag
+    bool is_press_left = false;
+    bool is_press_right = false;
+    bool is_press_up = false;
+    bool is_press_down = false;
 
 public:
     explicit GameWidget(QWidget* parent = nullptr,
@@ -86,23 +91,68 @@ protected:
         if (boss && player && background->getBossHealth()>0) {
             view->draw(*boss, *player, *background, painter, 1000 / 288);
         }
+        if(is_press_left){
+            emit KeyLeft();
+        }
+        if(is_press_right){
+            emit KeyRight();
+        }
+        if(is_press_up){
+            emit KeyUp();
+        }
+        if(is_press_down){
+            emit KeyDown();
+        }
     }
     void keyReleaseEvent(QKeyEvent *event) override {
-        emit KeyReleased();
+        switch (event->key()) {
+            case Qt::Key_Left:
+                if(!event->isAutoRepeat()) {
+                    is_press_left = false;
+                    emit KeyReleased();
+                }
+            break;
+            case Qt::Key_Right:
+                if(!event->isAutoRepeat()) {
+                    is_press_right = false;
+                    emit KeyReleased();
+                }
+            break;
+            case Qt::Key_Up:
+                if(!event->isAutoRepeat()) {
+                    is_press_up = false;
+                    emit KeyReleased();
+                }
+            break;
+            case Qt::Key_Down:
+                if(!event->isAutoRepeat()) {
+                    is_press_down = false;
+                    emit KeyReleased();
+                }
+            break;
+        }
     }
     void keyPressEvent(QKeyEvent* event) override {
         switch (event->key()) {
             case Qt::Key_Left:
-                emit KeyLeft();
+                if(!event->isAutoRepeat()){
+                    is_press_left = true;
+                }
             break;
             case Qt::Key_Right:
-                emit KeyRight();
+                if(!event->isAutoRepeat()) {
+                    is_press_right = true;
+                }
             break;
             case Qt::Key_Up:
-                emit KeyUp();
+                if(!event->isAutoRepeat()) {
+                    is_press_up = true;
+                }
             break;
             case Qt::Key_Down:
-                emit KeyDown();
+                if(!event->isAutoRepeat()) {
+                    is_press_down = true;
+                }
             break;
             case Qt::Key_S:
                 emit KeyS();
